@@ -55,7 +55,12 @@ public class BasicDetailsFragment extends Fragment {
     private List<String> mMemberList;
     private List<String> numbers;
 
-    private Spinner spinnerTaluk, spinnerDist, spinnerTanda, spinnerQualification, spinnerMember, spGents, spWomen, spChildren, spEducated, spWorkers;
+    private List<String> sourceOfIncomes, secondaryOfIncomes, cropList;
+
+
+    private Spinner spinnerTaluk, spinnerDist, spinnerTanda, spinnerQualification,
+            spinnerMember, spGents, spWomen, spChildren, spEducated, spWorkers,
+            spMainSourceIncome, spSecondarySourceIncome, spCropList;
     private String dist = null,  taluk = null, village = null;
     private String qual=null;
     private String memmber=null;
@@ -148,6 +153,46 @@ public class BasicDetailsFragment extends Fragment {
         spinnerMember.setAdapter(memAdapter);
         spinnerMember.setSelection(0);
 
+        sourceOfIncomes = new ArrayList<>();
+        sourceOfIncomes.add(getString(R.string.main_income_source));
+        sourceOfIncomes.add("ಕೃಷಿ");
+        sourceOfIncomes.add("ಕೂಲಿ");
+        sourceOfIncomes.add("ಹೈನುಗಾರಿಕೆ");
+        sourceOfIncomes.add("ಕುರಿಸಾಕಾಣಿಕೆ");;
+        sourceOfIncomes.add("ಕೋಳಿಸಾಕಾಣಿಕೆ");
+        sourceOfIncomes.add("ಇತರೆ");
+
+        ArrayAdapter mainIncomeAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, sourceOfIncomes);
+        mainIncomeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spMainSourceIncome.setAdapter(mainIncomeAdapter);
+        spMainSourceIncome.setSelection(0);
+
+        secondaryOfIncomes = new ArrayList<>();
+
+        secondaryOfIncomes.add(getString(R.string.sec_income_src));
+        secondaryOfIncomes.add("ಕೃಷಿ");
+        secondaryOfIncomes.add("ಕೂಲಿ");
+        secondaryOfIncomes.add("ಹೈನುಗಾರಿಕೆ");
+        secondaryOfIncomes.add("ಕುರಿಸಾಕಾಣಿಕೆ");;
+        secondaryOfIncomes.add("ಕೋಳಿಸಾಕಾಣಿಕೆ");
+        secondaryOfIncomes.add("ಇತರೆ");
+        ArrayAdapter secondAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, secondaryOfIncomes);
+        secondAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spSecondarySourceIncome.setAdapter(secondAdapter);
+        spSecondarySourceIncome.setSelection(0);
+
+        cropList = new ArrayList<>();
+        cropList.add("ಮೆಕ್ಕೆ ಜೋಳ");
+        cropList.add("ಬಿಳಿ ಜೋಳ");
+        cropList.add("ಸೂರ್ಯಕಾಂತಿ");
+        cropList.add("ರಾಗಿ");
+        cropList.add("ಭತ್ತ");
+        cropList.add("ಭತ್ತ");
+        cropList.add("ಕಬ್ಬು");
+
+
         for(int i=0;i<views.length; i++)
         {
             View view = getLayoutInflater().inflate(R.layout.land_details, null);
@@ -155,7 +200,20 @@ public class BasicDetailsFragment extends Fragment {
             view.findViewById(R.id.et_survey_no).setTag(i+14);
             view.findViewById(R.id.et_land_dimen).setTag(i+15);
             view.findViewById(R.id.et_land_value).setTag(i+16);
-            view.findViewById(R.id.crop_grown).setTag(i+17);
+            view.findViewById(R.id.sp_crop_list).setTag(i+17);
+
+         //   view.findViewById(R.id.sp_land_exist_dist).setTag(i+18);
+          //  view.findViewById(R.id.sp_land_exist_taluk).setTag(i+19);
+          //  view.findViewById(R.id.sp_land_exist_hobli).setTag(i+20);
+          //  view.findViewById(R.id.sp_land_exist_village).setTag(i+21);
+
+            Spinner cropSpinner = view.findViewById(R.id.sp_crop_list);
+            ArrayAdapter cropAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, cropList);
+            cropAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            cropSpinner.setAdapter(cropAdapter);
+            cropSpinner.setSelection(0);
+
             views[i] = view;
         }
 
@@ -211,6 +269,9 @@ public class BasicDetailsFragment extends Fragment {
 
         spinnerQualification = mView.findViewById(R.id.sp_qualification);
         spinnerMember = mView.findViewById(R.id.sp_member);
+        spMainSourceIncome = mView.findViewById(R.id.sp_main_source_of_income);
+        spSecondarySourceIncome = mView.findViewById(R.id.sp_second_source_of_income);
+
         mImageButtonAddLand = mView.findViewById(R.id.add_land);
         mImageButtonRemoveLand = mView.findViewById(R.id.remove_land);
         mLinearLayoutLand = mView.findViewById(R.id.landView);
@@ -341,19 +402,35 @@ public class BasicDetailsFragment extends Fragment {
                     fpoAppModel.setMainIncomeSource(editTextFamilyIncomeSource.getText().toString());
                     fpoAppModel.setSecondIncomeSource(editTextSecondIncomeSource.getText().toString());
 
+                    if(mainIncome!=null)
+                    {
+                        fpoAppModel.setMainIncomeSource(mainIncome);
+                    }
+                    else {
+                        Toast.makeText(getContext(), getString(R.string.select_main_income), Toast.LENGTH_LONG).show();
+                    }
+
+                    if(secondIncome!=null)
+                    {
+                        fpoAppModel.setSecondIncomeSource(secondIncome);
+                    }
+                    else {
+                        Toast.makeText(getContext(), getString(R.string.select_second_income), Toast.LENGTH_LONG).show();
+                    }
+
                     List<LandDetailsModel> landDetailsModelList = new ArrayList<>();
                     for(int i=0;i<count; i++)
                     {
                         TextInputEditText survey = mView.findViewWithTag(i+14);
                         TextInputEditText area = mView.findViewWithTag(i+15);
                         TextInputEditText value = mView.findViewWithTag(i+16);
-                        TextInputEditText crop = mView.findViewWithTag(i+17);
+                        Spinner crop = mView.findViewWithTag(i+17);
                         RadioGroup radioGroup = mView.findViewWithTag(i+11);
 
                         LandDetailsModel landDetailsModel = new LandDetailsModel();
                         landDetailsModel.setSurveyNumber(survey.getText().toString());
                         landDetailsModel.setLand(area.getText().toString());
-                        landDetailsModel.setCrop(crop.getText().toString());
+                        landDetailsModel.setCrop(crop.getSelectedItem().toString());
                         landDetailsModel.setLandValue(value.getText().toString());
                         RadioButton radioButton2 = mView.findViewById(radioGroup.getCheckedRadioButtonId());
                         if(R.id.irrigation==radioGroup.getCheckedRadioButtonId()){
@@ -381,6 +458,56 @@ public class BasicDetailsFragment extends Fragment {
                 }
             }
         });
+
+
+        spMainSourceIncome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                if(position!=0)
+                {
+                    mainIncome = sourceOfIncomes.get(position);
+                }
+                else
+                {
+                    mainIncome = null;
+                    secondIncome = null;
+                    spSecondarySourceIncome.setSelection(0);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        spSecondarySourceIncome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                if(position!=0)
+                {
+                    if(mainIncome.equalsIgnoreCase(secondaryOfIncomes.get(position))){
+                        Toast.makeText(getContext(), getString(R.string.both_income_same), Toast.LENGTH_LONG).show();
+                        spSecondarySourceIncome.setSelection(0);
+                    }
+                    else {
+                        secondIncome = secondaryOfIncomes.get(position);
+                    }
+                }
+                else
+                {
+                    secondIncome = null;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
         spinnerDist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -420,6 +547,9 @@ public class BasicDetailsFragment extends Fragment {
 
             }
         });
+
+
+
 
         spinnerTanda.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

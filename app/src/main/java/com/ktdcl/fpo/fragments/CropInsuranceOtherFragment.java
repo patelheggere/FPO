@@ -9,11 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.ktdcl.fpo.R;
@@ -35,7 +37,7 @@ public class CropInsuranceOtherFragment extends Fragment {
 
     private View mView;
 
-    private TextInputEditText editTextSeedsBaseName, editTextSeedsIfLoanTenure,  editTextseedsROI, editTextseedsQuantity;
+    private TextInputEditText  editTextSeedsIfLoanTenure,  editTextseedsROI, editTextseedsQuantity;
     private TextInputEditText editTextPlantBaseName,  editTextPlantIfLoanTenure, editTextplantROI, editTextplantQuantity;
 
     private TextInputEditText editTextFertilizerBaseName,  editTextFertilizerIfLoanTenure,  editTextFertilizerROI, editTextFertilizerQuantity;
@@ -68,6 +70,9 @@ public class CropInsuranceOtherFragment extends Fragment {
     private NumberPicker yearPicker;
     private LinearLayout linearLayoutSeedsLoanLyt,linearLayoutPlantsLoanLyt, linearLayoutFertLoanLyt, linearLayoutPestLoanLyt, linearLayoutBioPestLoanLyt,
             linearLayoutOrgManureLoanLyt,linearLayoutToolsLoanLyt;
+    private List<String> purchaseBaseNames;
+
+    private Spinner spSeedsBaseName;
 
     public CropInsuranceOtherFragment() {
         // Required empty public constructor
@@ -200,7 +205,7 @@ public class CropInsuranceOtherFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 agToolsPurchaseModelList = new ArrayList<>();
-                getObjects(editTextSeedsBaseName.getText().toString(), radioGroupSeedsPurchaseMode.getCheckedRadioButtonId(), editTextSeedsIfLoanTenure.getText().toString(), radioGroupSeedsLoanPercentage.getCheckedRadioButtonId(), editTextseedsROI.getText().toString(), editTextseedsQuantity.getText().toString());
+                getObjects(spSeedsBaseName.getSelectedItem().toString(), radioGroupSeedsPurchaseMode.getCheckedRadioButtonId(), editTextSeedsIfLoanTenure.getText().toString(), radioGroupSeedsLoanPercentage.getCheckedRadioButtonId(), editTextseedsROI.getText().toString(), editTextseedsQuantity.getText().toString());
                 getObjects(editTextPlantBaseName.getText().toString(), radioGroupPlantsPurchaseMode.getCheckedRadioButtonId(), editTextPlantIfLoanTenure.getText().toString(), radioGroupPlantsLoanPercentage.getCheckedRadioButtonId(), editTextplantROI.getText().toString(), editTextplantQuantity.getText().toString());
                 getObjects(editTextFertilizerBaseName.getText().toString(), radioGroupFertilizerPurchaseMode.getCheckedRadioButtonId(), editTextFertilizerIfLoanTenure.getText().toString(), radioGroupFertilizerLoanPercentage.getCheckedRadioButtonId(), editTextFertilizerROI.getText().toString(), editTextFertilizerQuantity.getText().toString());
                 getObjects(editTextPesticidesBaseName.getText().toString(), radioGroupPestPurchaseMode.getCheckedRadioButtonId(), editTextPesticidesIfLoanTenure.getText().toString(), radioGroupPestLoanPercentage.getCheckedRadioButtonId(), editTextPesticidesROI.getText().toString(), editTextPesticidesQuantity.getText().toString());
@@ -271,6 +276,13 @@ public class CropInsuranceOtherFragment extends Fragment {
                 Log.d(TAG, "onValueChange: "+insuranceYear);
             }
         });
+
+        purchaseBaseNames = new ArrayList<>();
+        purchaseBaseNames.add("ರೈತ ಸಂಪರ್ಕ ಕೇಂದ್ರ");
+        purchaseBaseNames.add("ರೈತರಿಂದ");
+        purchaseBaseNames.add("ಖಾಸಗಿ");
+        purchaseBaseNames.add("ಸೊಸೈಟಿ");
+
     }
 
     private void initViews() {
@@ -287,7 +299,7 @@ public class CropInsuranceOtherFragment extends Fragment {
         RGSoilTestYear = mView.findViewById(R.id.et_soil_test_year);
         mLinearLayoutSoilTest = mView.findViewById(R.id.linearlayout_soil_test);
 
-        editTextSeedsBaseName = mView.findViewById(R.id.et_root_name);
+        spSeedsBaseName = mView.findViewById(R.id.et_root_name);
         editTextSeedsIfLoanTenure = mView.findViewById(R.id.seeds_loan_tenure);
         editTextseedsROI = mView.findViewById(R.id.et_seeds_ri);
         editTextseedsQuantity = mView.findViewById(R.id.seeds_qty);
@@ -366,6 +378,12 @@ public class CropInsuranceOtherFragment extends Fragment {
                 }
             }
         });
+
+        ArrayAdapter cropAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, purchaseBaseNames);
+        cropAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spSeedsBaseName.setAdapter(cropAdapter);
+        spSeedsBaseName.setSelection(0);
 
 
     }

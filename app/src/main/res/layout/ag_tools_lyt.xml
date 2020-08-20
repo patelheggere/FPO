@@ -15,14 +15,11 @@
         android:layout_marginTop="8dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <Spinner
             android:id="@+id/et_root_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:maxLines="1"
-            android:imeOptions="actionNext"
-            android:inputType="textCapWords"
-            android:hint="@string/root_name" />
+            />
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
         android:layout_width="match_parent"

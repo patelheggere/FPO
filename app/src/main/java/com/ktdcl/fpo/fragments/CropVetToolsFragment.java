@@ -124,17 +124,18 @@ public class CropVetToolsFragment extends Fragment {
                     List<CropDetailsModel> cropDetailsModelList = new ArrayList<>();
                     for(int i=0;i<count; i++)
                     {
-                        TextInputEditText cropName = mView.findViewWithTag(i+14);
+                       // TextInputEditText cropName = mView.findViewWithTag(i+14);
+                        Spinner crop = mView.findViewWithTag(i+14);
                         TextInputEditText area = mView.findViewWithTag(i+15);
                         TextInputEditText et_crop_variety = mView.findViewWithTag(i+16);
                         TextInputEditText et_manufacture_exp = mView.findViewWithTag(i+17);
-                        TextInputEditText et_crop_yield = mView.findViewWithTag(i+18);
-                        TextInputEditText et_crop_sub_product = mView.findViewWithTag(i+19);
+                        Spinner et_crop_yield = mView.findViewWithTag(i+18);
+                        Spinner et_crop_sub_product = mView.findViewWithTag(i+19);
                         RadioGroup season = mView.findViewWithTag(i+11);
 
                         CropDetailsModel cropDetailsModel = new CropDetailsModel();
-                        if(cropName.getText()!=null)
-                            cropDetailsModel.setCrop(cropName.getText().toString());
+                        if(crop.getSelectedItem()!=null)
+                            cropDetailsModel.setCrop(crop.getSelectedItem().toString());
                         else
                             cropDetailsModel.setCrop(null);
 
@@ -153,13 +154,13 @@ public class CropVetToolsFragment extends Fragment {
                         else
                             cropDetailsModel.setProduceCost(null);
 
-                        if(et_crop_yield.getText()!=null)
-                            cropDetailsModel.setProduced(et_crop_yield.getText().toString());
+                        if(et_crop_yield.getSelectedItem()!=null)
+                            cropDetailsModel.setProduced(et_crop_yield.getSelectedItem().toString());
                         else
                             cropDetailsModel.setProduced(null);
 
-                        if(et_crop_sub_product.getText()!=null)
-                            cropDetailsModel.setSubProduct(et_crop_sub_product.getText().toString());
+                        if(et_crop_sub_product.getSelectedItem()!=null)
+                            cropDetailsModel.setSubProduct(et_crop_sub_product.getSelectedItem().toString());
                         else
                             cropDetailsModel.setSubProduct(null);
 
@@ -671,18 +672,61 @@ public class CropVetToolsFragment extends Fragment {
 
     private LinearLayout mLinearLayoutCropView;
     private int count=0;
+    private List<String> cropList;
+    private List<String> cropYield;
     private void initData() {
+
+        cropList = new ArrayList<>();
+        cropList.add("ಮೆಕ್ಕೆ ಜೋಳ");
+        cropList.add("ಬಿಳಿ ಜೋಳ");
+        cropList.add("ಸೂರ್ಯಕಾಂತಿ");
+        cropList.add("ರಾಗಿ");
+        cropList.add("ಭತ್ತ");
+        cropList.add("ಭತ್ತ");
+        cropList.add("ಕಬ್ಬು");
+
+        cropYield = new ArrayList<>();
+        cropYield.add("0-1");
+        cropYield.add("1-5");
+        cropYield.add("6-10");
+        cropYield.add("11-15");
+        cropYield.add("16-20");
+        cropYield.add("21-25");
+        cropYield.add("26-30");
+
 
         for(int i=0;i<views.length; i++)
         {
             View view = getLayoutInflater().inflate(R.layout.crop_grown_lyt, null);
             view.findViewById(R.id.rg).setTag(i+11);
-            view.findViewById(R.id.et_crop_name).setTag(i+14);
+            view.findViewById(R.id.sp_crop_list).setTag(i+14);
             view.findViewById(R.id.et_crop_area).setTag(i+15);
             view.findViewById(R.id.et_crop_variety).setTag(i+16);
             view.findViewById(R.id.et_manufacture_exp).setTag(i+17);
-            view.findViewById(R.id.et_crop_yield).setTag(i+18);
-            view.findViewById(R.id.et_crop_sub_product).setTag(i+19);
+            view.findViewById(R.id.sp_crop_yield).setTag(i+18);
+            view.findViewById(R.id.sp_sub_prod_yield).setTag(i+19);
+
+            Spinner cropSpinner = view.findViewById(R.id.sp_crop_list);
+            ArrayAdapter cropAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, cropList);
+            cropAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            cropSpinner.setAdapter(cropAdapter);
+            cropSpinner.setSelection(0);
+
+            Spinner cropYieldSpinner = view.findViewById(R.id.sp_crop_yield);
+            ArrayAdapter cropYieldAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, cropYield );
+            cropYieldAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            cropYieldSpinner.setAdapter(cropYieldAdapter);
+            cropYieldSpinner.setSelection(0);
+
+            Spinner cropSubYieldSpinner = view.findViewById(R.id.sp_sub_prod_yield);
+            ArrayAdapter cropSubAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, cropYield);
+            cropSubAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            cropSubYieldSpinner.setAdapter(cropSubAdapter);
+            cropSubYieldSpinner.setSelection(0);
+
             views[i] = view;
         }
         mLinearLayoutCropView.addView(views[count]);

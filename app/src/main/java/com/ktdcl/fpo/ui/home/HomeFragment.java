@@ -171,7 +171,7 @@ public class HomeFragment extends Fragment {
             view.findViewById(R.id.et_land_dimen).setTag(i+15);
             view.findViewById(R.id.et_survey_no).setTag(i+14);
             view.findViewById(R.id.et_land_value).setTag(i+16);
-            view.findViewById(R.id.crop_grown).setTag(i+17);
+            view.findViewById(R.id.sp_crop_list).setTag(i+17);
             views[i] = view;
 
         }

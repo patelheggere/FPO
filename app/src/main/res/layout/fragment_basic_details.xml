@@ -466,6 +466,7 @@
                 android:layout_weight="1.5"/>
         </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -476,6 +477,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
+                android:visibility="gone"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -495,6 +497,59 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/spinner_border"
+                >
+                <Spinner
+                    android:id="@+id/sp_main_source_of_income"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!--  <com.google.android.material.textfield.TextInputEditText
+                      android:id="@+id/et_village"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:hint="@string/enter_village" />-->
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/spinner_border"
+                >
+                <Spinner
+                    android:id="@+id/sp_second_source_of_income"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!--  <com.google.android.material.textfield.TextInputEditText
+                      android:id="@+id/et_village"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:hint="@string/enter_village" />-->
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_secondary_income"
                 android:layout_width="match_parent"

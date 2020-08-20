@@ -306,4 +306,7 @@
     <string name="govt_schemes">ಸರ್ಕಾರದ ಕಲ್ಯಾಣ ಕಾರ್ಯಕ್ರಮಗಳು</string>
     <string name="failure">failed load data</string>
     <string name="internet">No internet</string>
+    <string name="both_income_same">ಆದಾಯದ ಮೂಲಗಳು ಬೇರೆ ಬೇರೆ ಆಗಿರಬೇಕು</string>
+    <string name="select_main_income">ಮುಖ್ಯ ಆದಾಯದ ಮೂಲವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="select_second_income">ದ್ವಿತೀಯ ಆದಾಯ ಮೂಲವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
 </resources>

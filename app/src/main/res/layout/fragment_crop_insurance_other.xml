@@ -32,13 +32,45 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_marginTop="8dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/root_name"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sub_product"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:background="@drawable/spinner_border"
+                    >
+                    <Spinner
+                        android:id="@+id/sp_seeds_purchase_base"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <!--  <com.google.android.material.textfield.TextInputEditText
+                          android:id="@+id/et_village"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:hint="@string/enter_village" />-->
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:visibility="gone"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <Spinner
                     android:id="@+id/et_root_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
