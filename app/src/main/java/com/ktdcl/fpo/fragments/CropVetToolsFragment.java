@@ -8,15 +8,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.telecom.Call;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -28,9 +25,7 @@ import com.ktdcl.fpo.R;
 import com.ktdcl.fpo.model.AgToolsModel;
 import com.ktdcl.fpo.model.BankNameModel;
 import com.ktdcl.fpo.model.CropDetailsModel;
-import com.ktdcl.fpo.model.DistrictModel;
 import com.ktdcl.fpo.model.FPOAppModel;
-import com.ktdcl.fpo.model.LandDetailsModel;
 import com.ktdcl.fpo.model.VetDetailsModel;
 import com.ktdcl.fpo.network.ApiInterface;
 import com.ktdcl.fpo.network.RetrofitInstance;

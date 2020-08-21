@@ -38,14 +38,15 @@ public class CropInsuranceOtherFragment extends Fragment {
     private View mView;
 
     private TextInputEditText  editTextSeedsIfLoanTenure,  editTextseedsROI, editTextseedsQuantity;
-    private TextInputEditText editTextPlantBaseName,  editTextPlantIfLoanTenure, editTextplantROI, editTextplantQuantity;
+    private TextInputEditText   editTextPlantIfLoanTenure, editTextplantROI, editTextplantQuantity;
 
-    private TextInputEditText editTextFertilizerBaseName,  editTextFertilizerIfLoanTenure,  editTextFertilizerROI, editTextFertilizerQuantity;
-    private TextInputEditText editTextOrganicManureBaseName,  editTextOrganicManureIfLoanTenure, editTextOrganicManureROI, editTextOrganicManureQuantity;
+    private Spinner editTextPlantBaseName, editTextFertilizerBaseName, editTextOrganicManureBaseName, editTextPesticidesBaseName, editTextToolsMachinesBaseName, editTextBioFertilizerBaseName;
+    private TextInputEditText   editTextFertilizerIfLoanTenure,  editTextFertilizerROI, editTextFertilizerQuantity;
+    private TextInputEditText   editTextOrganicManureIfLoanTenure, editTextOrganicManureROI, editTextOrganicManureQuantity;
 
-    private TextInputEditText editTextPesticidesBaseName,  editTextPesticidesIfLoanTenure,  editTextPesticidesROI, editTextPesticidesQuantity;
-    private TextInputEditText editTextToolsMachinesBaseName,  editTextToolsMachinesIfLoanTenure,  editTextToolsMachinesROI, editTextToolsMachinesQuantity;
-    private TextInputEditText editTextBioFertilizerBaseName,  editTextBioFertilizerIfLoanTenure,  editTextBioFertilizerROI, editTextBioFertilizerQuantity;
+    private TextInputEditText   editTextPesticidesIfLoanTenure,  editTextPesticidesROI, editTextPesticidesQuantity;
+    private TextInputEditText   editTextToolsMachinesIfLoanTenure,  editTextToolsMachinesROI, editTextToolsMachinesQuantity;
+    private TextInputEditText   editTextBioFertilizerIfLoanTenure,  editTextBioFertilizerROI, editTextBioFertilizerQuantity;
     private TextInputEditText editTextCropInsureYear, editTextCropName, editTextPaidPremium, editTextInsuranceReceived, RGSoilTestYear;
 
     private RadioGroup radioGroupSeedsPurchaseMode, radioGroupPlantsPurchaseMode, radioGroupFertilizerPurchaseMode, radioGroupOrgManurePurchaseMode, radioGroupPestPurchaseMode, radioGroupToolsMachinePurchaseMode, radioGroupBioFertPurchaseMode;
@@ -72,7 +73,20 @@ public class CropInsuranceOtherFragment extends Fragment {
             linearLayoutOrgManureLoanLyt,linearLayoutToolsLoanLyt;
     private List<String> purchaseBaseNames;
 
-    private Spinner spSeedsBaseName;
+    private Spinner spSeedsBaseName ;
+
+    /*
+    ಸಲ್ಫರ್ (ಶಿಲೀಂಧ್ರನಾಶಕ)
+    ಎಂಡೋಸಲ್ಫಾನ್ (ಕೀಟನಾಶಕ) ಮ್ಯಾಂಕೋಜೆಬ್ (ಶಿಲೀಂಧ್ರನಾಶಕ)
+    ಫೊರೆಟ್ (ಕೀಟನಾಶಕ)
+    ಮೀಥೈಲ್ ಪ್ಯಾರಾಥಿಯಾನ್ (ಕೀಟನಾಶಕ) ಮೊನೊಕ್ರೊಟೊಫಾಸ್ (ಕೀಟನಾಶಕ)
+    ಸೈಪರ್ಮೆಥ್ರಿನ್ (ಕೀಟನಾಶಕ)
+    ಐಸೊಪ್ರೊಟುರಾನ್ (ಸಸ್ಯನಾಶಕ)
+    ಕ್ಲೋರ್ಪಿರಿಫೊಸ್ (ಕೀಟನಾಶಕ) ಮಾಲಾಥಿಯಾನ್ (ಕೀಟನಾಶಕ)
+    ಕಾರ್ಬೆಂಡಾಜಿಮ್ (ಶಿಲೀಂಧ್ರನಾಶಕ)
+    ಬುಟಾಚ್ಲೋರ್ (ಸಸ್ಯನಾಶಕ) ಕ್ವಿನಾಲ್ಫೋಸ್ (ಕೀಟನಾಶಕ) ಕಾಪರ್ ಆಕ್ಸಿಕ್ಲೋರೈಡ್ ಡಿಕ್ಲೋರ್ವೋಸ್ (ಕೀಟನಾಶಕ)
+
+     */
 
     public CropInsuranceOtherFragment() {
         // Required empty public constructor
@@ -206,12 +220,12 @@ public class CropInsuranceOtherFragment extends Fragment {
             public void onClick(View v) {
                 agToolsPurchaseModelList = new ArrayList<>();
                 getObjects(spSeedsBaseName.getSelectedItem().toString(), radioGroupSeedsPurchaseMode.getCheckedRadioButtonId(), editTextSeedsIfLoanTenure.getText().toString(), radioGroupSeedsLoanPercentage.getCheckedRadioButtonId(), editTextseedsROI.getText().toString(), editTextseedsQuantity.getText().toString());
-                getObjects(editTextPlantBaseName.getText().toString(), radioGroupPlantsPurchaseMode.getCheckedRadioButtonId(), editTextPlantIfLoanTenure.getText().toString(), radioGroupPlantsLoanPercentage.getCheckedRadioButtonId(), editTextplantROI.getText().toString(), editTextplantQuantity.getText().toString());
-                getObjects(editTextFertilizerBaseName.getText().toString(), radioGroupFertilizerPurchaseMode.getCheckedRadioButtonId(), editTextFertilizerIfLoanTenure.getText().toString(), radioGroupFertilizerLoanPercentage.getCheckedRadioButtonId(), editTextFertilizerROI.getText().toString(), editTextFertilizerQuantity.getText().toString());
-                getObjects(editTextPesticidesBaseName.getText().toString(), radioGroupPestPurchaseMode.getCheckedRadioButtonId(), editTextPesticidesIfLoanTenure.getText().toString(), radioGroupPestLoanPercentage.getCheckedRadioButtonId(), editTextPesticidesROI.getText().toString(), editTextPesticidesQuantity.getText().toString());
-                getObjects(editTextBioFertilizerBaseName.getText().toString(), radioGroupBioFertPurchaseMode.getCheckedRadioButtonId(), editTextBioFertilizerIfLoanTenure.getText().toString(), radioGroupBioFertLoanPercentage.getCheckedRadioButtonId(), editTextBioFertilizerROI.getText().toString(), editTextBioFertilizerQuantity.getText().toString());
-                getObjects(editTextOrganicManureBaseName.getText().toString(), radioGroupOrgManurePurchaseMode.getCheckedRadioButtonId(), editTextOrganicManureIfLoanTenure.getText().toString(), radioGroupOrgManureLoanPercentage.getCheckedRadioButtonId(), editTextOrganicManureROI.getText().toString(), editTextOrganicManureQuantity.getText().toString());
-                getObjects(editTextToolsMachinesBaseName.getText().toString(), radioGroupToolsMachinePurchaseMode.getCheckedRadioButtonId(), editTextToolsMachinesIfLoanTenure.getText().toString(), radioGroupToolsMachineLoanPercentage.getCheckedRadioButtonId(), editTextToolsMachinesROI.getText().toString(), editTextToolsMachinesQuantity.getText().toString());
+                getObjects(editTextPlantBaseName.getSelectedItem().toString(), radioGroupPlantsPurchaseMode.getCheckedRadioButtonId(), editTextPlantIfLoanTenure.getText().toString(), radioGroupPlantsLoanPercentage.getCheckedRadioButtonId(), editTextplantROI.getText().toString(), editTextplantQuantity.getText().toString());
+                getObjects(editTextFertilizerBaseName.getSelectedItem().toString(), radioGroupFertilizerPurchaseMode.getCheckedRadioButtonId(), editTextFertilizerIfLoanTenure.getText().toString(), radioGroupFertilizerLoanPercentage.getCheckedRadioButtonId(), editTextFertilizerROI.getText().toString(), editTextFertilizerQuantity.getText().toString());
+                getObjects(editTextPesticidesBaseName.getSelectedItem().toString(), radioGroupPestPurchaseMode.getCheckedRadioButtonId(), editTextPesticidesIfLoanTenure.getText().toString(), radioGroupPestLoanPercentage.getCheckedRadioButtonId(), editTextPesticidesROI.getText().toString(), editTextPesticidesQuantity.getText().toString());
+                getObjects(editTextBioFertilizerBaseName.getSelectedItem().toString(), radioGroupBioFertPurchaseMode.getCheckedRadioButtonId(), editTextBioFertilizerIfLoanTenure.getText().toString(), radioGroupBioFertLoanPercentage.getCheckedRadioButtonId(), editTextBioFertilizerROI.getText().toString(), editTextBioFertilizerQuantity.getText().toString());
+                getObjects(editTextOrganicManureBaseName.getSelectedItem().toString(), radioGroupOrgManurePurchaseMode.getCheckedRadioButtonId(), editTextOrganicManureIfLoanTenure.getText().toString(), radioGroupOrgManureLoanPercentage.getCheckedRadioButtonId(), editTextOrganicManureROI.getText().toString(), editTextOrganicManureQuantity.getText().toString());
+                getObjects(editTextToolsMachinesBaseName.getSelectedItem().toString(), radioGroupToolsMachinePurchaseMode.getCheckedRadioButtonId(), editTextToolsMachinesIfLoanTenure.getText().toString(), radioGroupToolsMachineLoanPercentage.getCheckedRadioButtonId(), editTextToolsMachinesROI.getText().toString(), editTextToolsMachinesQuantity.getText().toString());
 
                 fpoAppModel.setAgToolsPurchaseModelList(agToolsPurchaseModelList);
 
@@ -282,6 +296,53 @@ public class CropInsuranceOtherFragment extends Fragment {
         purchaseBaseNames.add("ರೈತರಿಂದ");
         purchaseBaseNames.add("ಖಾಸಗಿ");
         purchaseBaseNames.add("ಸೊಸೈಟಿ");
+
+        ArrayAdapter cropAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, purchaseBaseNames);
+        cropAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spSeedsBaseName.setAdapter(cropAdapter);
+        spSeedsBaseName.setSelection(0);
+
+        ArrayAdapter plantAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, purchaseBaseNames);
+        plantAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        editTextPlantBaseName.setAdapter(plantAdapter);
+        editTextPlantBaseName.setSelection(0);
+
+
+        ArrayAdapter FertilizerAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, purchaseBaseNames);
+        FertilizerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        editTextFertilizerBaseName.setAdapter(FertilizerAdapter);
+        editTextFertilizerBaseName.setSelection(0);
+
+
+        ArrayAdapter organicManureAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, purchaseBaseNames);
+        organicManureAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        editTextOrganicManureBaseName.setAdapter(organicManureAdapter);
+        editTextOrganicManureBaseName.setSelection(0);
+
+
+        ArrayAdapter pesticideAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, purchaseBaseNames);
+        pesticideAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        editTextPesticidesBaseName.setAdapter(pesticideAdapter);
+        editTextPesticidesBaseName.setSelection(0);
+
+
+        ArrayAdapter ToolsMachineAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, purchaseBaseNames);
+        ToolsMachineAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        editTextToolsMachinesBaseName.setAdapter(ToolsMachineAdapter);
+        editTextToolsMachinesBaseName.setSelection(0);
+
+
+        ArrayAdapter BioFertAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, purchaseBaseNames);
+        BioFertAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        editTextBioFertilizerBaseName.setAdapter(BioFertAdapter);
+        editTextBioFertilizerBaseName.setSelection(0);
 
     }
 
@@ -378,12 +439,6 @@ public class CropInsuranceOtherFragment extends Fragment {
                 }
             }
         });
-
-        ArrayAdapter cropAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, purchaseBaseNames);
-        cropAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spSeedsBaseName.setAdapter(cropAdapter);
-        spSeedsBaseName.setSelection(0);
 
 
     }

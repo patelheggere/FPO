@@ -200,21 +200,38 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_marginTop="8dp"/>
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_plant_root_name"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/root_name"
+                    android:layout_marginTop="8dp"
+                   />
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:maxLines="1"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapWords"
-                    android:hint="@string/root_name" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <Spinner
+                        android:id="@+id/et_plant_root_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <!-- <com.google.android.material.textfield.TextInputEditText
+                         android:id="@+id/et_plant_root_name"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:maxLines="1"
+                         android:imeOptions="actionNext"
+                         android:inputType="textCapWords"
+                         android:hint="@string/root_name" />-->
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -342,14 +359,19 @@
                 android:layout_marginTop="8dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <Spinner
+                    android:id="@+id/et_fertilizer_root_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+               <!-- <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_fertilizer_root_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLines="1"
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
-                    android:hint="@string/root_name" />
+                    android:hint="@string/root_name" />-->
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:layout_width="match_parent"
@@ -473,21 +495,37 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_marginTop="8dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/root_name"
+                    android:layout_marginTop="8dp"
+                    />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <Spinner
+                    android:id="@+id/et_pest_root_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!--<com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_pest_root_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLines="1"
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
-                    android:hint="@string/root_name" />
+                    android:hint="@string/root_name" />-->
             </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -609,21 +647,36 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_marginTop="8dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/root_name"
+                    android:layout_marginTop="8dp"
+                    />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <Spinner
+                    android:id="@+id/et_bio_pest_root_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <!--    <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_bio_pest_root_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLines="1"
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
-                    android:hint="@string/root_name" />
+                    android:hint="@string/root_name" />-->
             </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -745,21 +798,37 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/root_name"
+                    android:layout_marginTop="8dp"
+                    />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <Spinner
+                    android:id="@+id/et_org_man_root_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+               <!-- <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_org_man_root_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLines="1"
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
-                    android:hint="@string/root_name" />
+                    android:hint="@string/root_name" />-->
             </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -883,21 +952,36 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/root_name"
+                    android:layout_marginTop="8dp"
+                    />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <Spinner
+                    android:id="@+id/et_tools_machine_root_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+             <!--   <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_tools_machine_root_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLines="1"
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
-                    android:hint="@string/root_name" />
+                    android:hint="@string/root_name" />-->
             </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
