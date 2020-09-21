@@ -73,18 +73,12 @@ public class CropInsuranceOtherFragment extends Fragment {
             linearLayoutOrgManureLoanLyt,linearLayoutToolsLoanLyt;
     private List<String> purchaseBaseNames;
 
-    private Spinner spSeedsBaseName ;
+    private Spinner spSeedsBaseName, spPesticidesNames ;
+
+    private List<String> pesticidesList = new ArrayList<>();
 
     /*
-    ಸಲ್ಫರ್ (ಶಿಲೀಂಧ್ರನಾಶಕ)
-    ಎಂಡೋಸಲ್ಫಾನ್ (ಕೀಟನಾಶಕ) ಮ್ಯಾಂಕೋಜೆಬ್ (ಶಿಲೀಂಧ್ರನಾಶಕ)
-    ಫೊರೆಟ್ (ಕೀಟನಾಶಕ)
-    ಮೀಥೈಲ್ ಪ್ಯಾರಾಥಿಯಾನ್ (ಕೀಟನಾಶಕ) ಮೊನೊಕ್ರೊಟೊಫಾಸ್ (ಕೀಟನಾಶಕ)
-    ಸೈಪರ್ಮೆಥ್ರಿನ್ (ಕೀಟನಾಶಕ)
-    ಐಸೊಪ್ರೊಟುರಾನ್ (ಸಸ್ಯನಾಶಕ)
-    ಕ್ಲೋರ್ಪಿರಿಫೊಸ್ (ಕೀಟನಾಶಕ) ಮಾಲಾಥಿಯಾನ್ (ಕೀಟನಾಶಕ)
-    ಕಾರ್ಬೆಂಡಾಜಿಮ್ (ಶಿಲೀಂಧ್ರನಾಶಕ)
-    ಬುಟಾಚ್ಲೋರ್ (ಸಸ್ಯನಾಶಕ) ಕ್ವಿನಾಲ್ಫೋಸ್ (ಕೀಟನಾಶಕ) ಕಾಪರ್ ಆಕ್ಸಿಕ್ಲೋರೈಡ್ ಡಿಕ್ಲೋರ್ವೋಸ್ (ಕೀಟನಾಶಕ)
+
 
      */
 
@@ -109,7 +103,6 @@ public class CropInsuranceOtherFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
             fpoAppModel = getArguments().getParcelable("FPOMODEL");
-
         }
     }
 
@@ -297,6 +290,22 @@ public class CropInsuranceOtherFragment extends Fragment {
         purchaseBaseNames.add("ಖಾಸಗಿ");
         purchaseBaseNames.add("ಸೊಸೈಟಿ");
 
+        pesticidesList.add("ಸಲ್ಫರ್(ಶಿಲೀಂಧ್ರನಾಶಕ)");
+        pesticidesList.add("ಎಂಡೋಸಲ್ಫಾನ್(ಕೀಟನಾಶಕ)");
+        pesticidesList.add("ಮ್ಯಾಂಕೋಜೆಬ್(ಶಿಲೀಂಧ್ರನಾಶಕ)");
+        pesticidesList.add("ಫೊರೆಟ್(ಕೀಟನಾಶಕ)");
+        pesticidesList.add("ಮೀಥೈಲ್ ಪ್ಯಾರಾಥಿಯಾನ್(ಕೀಟನಾಶಕ)");
+        pesticidesList.add("ಮೊನೊಕ್ರೊಟೊಫಾಸ್(ಕೀಟನಾಶಕ)");
+        pesticidesList.add("ಸೈಪರ್ಮೆಥ್ರಿನ್ (ಕೀಟನಾಶಕ)");
+        pesticidesList.add("ಐಸೊಪ್ರೊಟುರಾನ್ (ಸಸ್ಯನಾಶಕ)");
+        pesticidesList.add("ಕ್ಲೋರ್ಪಿರಿಫೊಸ್(ಕೀಟನಾಶಕ) ");
+        pesticidesList.add("ಮಾಲಾಥಿಯಾನ್(ಕೀಟನಾಶಕ)");
+        pesticidesList.add("ಕಾರ್ಬೆಂಡಾಜಿಮ್(ಶಿಲೀಂಧ್ರನಾಶಕ)");
+        pesticidesList.add("ಬುಟಾಚ್ಲೋರ್ (ಸಸ್ಯನಾಶಕ)");
+        pesticidesList.add("ಕ್ವಿನಾಲ್ಫೋಸ್(ಕೀಟನಾಶಕ)");
+        pesticidesList.add("ಕಾಪರ್ ಆಕ್ಸಿಕ್ಲೋರೈಡ್ ಡಿಕ್ಲೋರ್ವೋಸ್(ಕೀಟನಾಶಕ)");
+
+
         ArrayAdapter cropAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, purchaseBaseNames);
         cropAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -424,6 +433,8 @@ public class CropInsuranceOtherFragment extends Fragment {
         RGPestControl = mView.findViewById(R.id.rg_improve_pest_control);
         RGICTComm = mView.findViewById(R.id.rg_met_ict);
         RGCropTech = mView.findViewById(R.id.rg_impl_samagra_crop);
+
+       // spPesticidesNames = mView.findViewById(R.id.)
 
         radioGroupSoilTest.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
