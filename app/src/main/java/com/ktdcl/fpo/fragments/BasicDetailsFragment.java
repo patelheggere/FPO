@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -23,6 +24,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.ktdcl.fpo.KtdclApplication;
 import com.ktdcl.fpo.R;
 import com.ktdcl.fpo.model.DistrictModel;
 import com.ktdcl.fpo.model.FPOAppModel;
@@ -192,7 +198,31 @@ public class BasicDetailsFragment extends Fragment {
         cropList.add("ಭತ್ತ");
         cropList.add("ಕಬ್ಬು");
 
+        DatabaseReference reference = KtdclApplication.getFireBaseRef();
+        reference = reference.child("CROP_LIST");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                cropList = new ArrayList<>();
 
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    Log.d(TAG, "onDataChange: "+dataSnapshot1.getValue().toString());
+                    cropList.add(dataSnapshot1.getValue().toString());
+                }
+                initCropData();
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void initCropData(){
         for(int i=0;i<views.length; i++)
         {
             View view = getLayoutInflater().inflate(R.layout.land_details, null);
@@ -202,10 +232,10 @@ public class BasicDetailsFragment extends Fragment {
             view.findViewById(R.id.et_land_value).setTag(i+16);
             view.findViewById(R.id.sp_crop_list).setTag(i+17);
 
-         //   view.findViewById(R.id.sp_land_exist_dist).setTag(i+18);
-          //  view.findViewById(R.id.sp_land_exist_taluk).setTag(i+19);
-          //  view.findViewById(R.id.sp_land_exist_hobli).setTag(i+20);
-          //  view.findViewById(R.id.sp_land_exist_village).setTag(i+21);
+            //   view.findViewById(R.id.sp_land_exist_dist).setTag(i+18);
+            //  view.findViewById(R.id.sp_land_exist_taluk).setTag(i+19);
+            //  view.findViewById(R.id.sp_land_exist_hobli).setTag(i+20);
+            //  view.findViewById(R.id.sp_land_exist_village).setTag(i+21);
 
             Spinner cropSpinner = view.findViewById(R.id.sp_crop_list);
             ArrayAdapter cropAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, cropList);

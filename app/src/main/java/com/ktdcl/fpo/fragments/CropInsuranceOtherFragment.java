@@ -40,6 +40,7 @@ public class CropInsuranceOtherFragment extends Fragment {
     private TextInputEditText  editTextSeedsIfLoanTenure,  editTextseedsROI, editTextseedsQuantity;
     private TextInputEditText   editTextPlantIfLoanTenure, editTextplantROI, editTextplantQuantity;
 
+    private Spinner sp_seeds_purchase_base;
     private Spinner editTextPlantBaseName, editTextFertilizerBaseName, editTextOrganicManureBaseName, editTextPesticidesBaseName, editTextToolsMachinesBaseName, editTextBioFertilizerBaseName;
     private TextInputEditText   editTextFertilizerIfLoanTenure,  editTextFertilizerROI, editTextFertilizerQuantity;
     private TextInputEditText   editTextOrganicManureIfLoanTenure, editTextOrganicManureROI, editTextOrganicManureQuantity;
@@ -317,6 +318,8 @@ public class CropInsuranceOtherFragment extends Fragment {
 
         editTextPlantBaseName.setAdapter(plantAdapter);
         editTextPlantBaseName.setSelection(0);
+
+
 
 
         ArrayAdapter FertilizerAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item, purchaseBaseNames);

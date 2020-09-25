@@ -46,40 +46,21 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/sub_product"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:background="@drawable/spinner_border"
-                    >
-                    <Spinner
-                        android:id="@+id/sp_seeds_purchase_base"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                    android:layout_marginTop="8dp"
+                    android:visibility="visible"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                    <!--  <com.google.android.material.textfield.TextInputEditText
-                          android:id="@+id/et_village"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:hint="@string/enter_village" />-->
+                    <Spinner
+                        android:id="@+id/et_root_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:maxLines="1"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
+                        android:hint="@string/root_name" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <Spinner
-                    android:id="@+id/et_root_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:maxLines="1"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapWords"
-                    android:hint="@string/root_name" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <TextView
+          <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

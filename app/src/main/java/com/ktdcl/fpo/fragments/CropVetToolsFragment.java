@@ -6,8 +6,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.ktdcl.fpo.KtdclApplication;
 import com.ktdcl.fpo.R;
 import com.ktdcl.fpo.model.AgToolsModel;
 import com.ktdcl.fpo.model.BankNameModel;
@@ -670,16 +677,30 @@ public class CropVetToolsFragment extends Fragment {
     private List<String> cropList;
     private List<String> cropYield;
     private void initData() {
+        DatabaseReference reference = KtdclApplication.getFireBaseRef();
+        reference = reference.child("CROP_LIST");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                cropList = new ArrayList<>();
 
-        cropList = new ArrayList<>();
-        cropList.add("ಮೆಕ್ಕೆ ಜೋಳ");
-        cropList.add("ಬಿಳಿ ಜೋಳ");
-        cropList.add("ಸೂರ್ಯಕಾಂತಿ");
-        cropList.add("ರಾಗಿ");
-        cropList.add("ಭತ್ತ");
-        cropList.add("ಭತ್ತ");
-        cropList.add("ಕಬ್ಬು");
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    Log.d(TAG, "onDataChange: "+dataSnapshot1.getValue().toString());
+                    cropList.add(dataSnapshot1.getValue().toString());
+                }
+                initCropDataandOthers();
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void initCropDataandOthers() {
         cropYield = new ArrayList<>();
         cropYield.add("0-1");
         cropYield.add("1-5");
@@ -811,7 +832,6 @@ public class CropVetToolsFragment extends Fragment {
         spPig.setSelection(0);
         spDustSprayer.setAdapter(num);
         spDustSprayer.setSelection(0);
-
 
     }
 
