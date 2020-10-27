@@ -3,9 +3,14 @@ package com.ktdcl.fpo;
 import android.app.Application;
 import android.os.StrictMode;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class KtdclApplication extends Application {
     private static KtdclApplication mInstance;
+    private static DatabaseReference databaseReference;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -25,17 +30,17 @@ public class KtdclApplication extends Application {
         }*/
 
     }
-    /*public static synchronized DatabaseReference getFireBaseRef()
+    public static synchronized DatabaseReference getFireBaseRef()
     {
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         if(BuildConfig.DEBUG) {
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("KTDCL").child("test");
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("FPO").child("test");
         }
         else {
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("KTDCL").child("prod");
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("FPO").child("prod");
         }
         return databaseReference;
-    }*/
+    }
 
     public static synchronized KtdclApplication getInstance() {
         return mInstance;
