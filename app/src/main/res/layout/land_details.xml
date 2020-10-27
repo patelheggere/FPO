@@ -85,6 +85,60 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/spinner_border">
+            <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/et_district"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:hint="@string/dist" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/spinner_border"
+            >
+              <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/et_taluk"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:hint="@string/taluk" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/spinner_border"
+            >
+        <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/et_village"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:hint="@string/enter_village" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone">

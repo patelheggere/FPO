@@ -202,6 +202,10 @@ public class BasicDetailsFragment extends Fragment {
             view.findViewById(R.id.et_land_value).setTag(i+16);
             view.findViewById(R.id.sp_crop_list).setTag(i+17);
 
+            view.findViewById(R.id.et_district).setTag(i+18);
+            view.findViewById(R.id.et_taluk).setTag(i+19);
+            view.findViewById(R.id.et_village).setTag(i+20);
+
          //   view.findViewById(R.id.sp_land_exist_dist).setTag(i+18);
           //  view.findViewById(R.id.sp_land_exist_taluk).setTag(i+19);
           //  view.findViewById(R.id.sp_land_exist_hobli).setTag(i+20);
@@ -427,11 +431,22 @@ public class BasicDetailsFragment extends Fragment {
                         Spinner crop = mView.findViewWithTag(i+17);
                         RadioGroup radioGroup = mView.findViewWithTag(i+11);
 
+
+                        TextInputEditText dist = mView.findViewWithTag(i+18);
+                        TextInputEditText taluk = mView.findViewWithTag(i+19);
+                        TextInputEditText village = mView.findViewWithTag(i+20);
+
+
                         LandDetailsModel landDetailsModel = new LandDetailsModel();
                         landDetailsModel.setSurveyNumber(survey.getText().toString());
                         landDetailsModel.setLand(area.getText().toString());
                         landDetailsModel.setCrop(crop.getSelectedItem().toString());
                         landDetailsModel.setLandValue(value.getText().toString());
+
+                        landDetailsModel.setDistrict(dist.getText().toString());
+                        landDetailsModel.setTaluk(taluk.getText().toString());
+                        landDetailsModel.setVillage(village.getText().toString());
+
                         RadioButton radioButton2 = mView.findViewById(radioGroup.getCheckedRadioButtonId());
                         if(R.id.irrigation==radioGroup.getCheckedRadioButtonId()){
                             Log.d(TAG, "onClick: "+radioButton.getText());
