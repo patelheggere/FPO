@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import com.ktdcl.fpo.activity.LoginActivity;
+import com.ktdcl.fpo.utils.SharedPrefsHelper;
+
+import static com.ktdcl.fpo.utils.AppUtils.Constants.FIRST_TIME;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -20,6 +25,10 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent i = new Intent(SplashActivity.this, SecondMainActivity.class);
+
+                if(!SharedPrefsHelper.getInstance().get(FIRST_TIME, false)){
+                    i = new Intent(SplashActivity.this, LoginActivity.class);
+                }
                 startActivity(i);
                 finish();
             }
