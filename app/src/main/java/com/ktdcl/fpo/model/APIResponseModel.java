@@ -8,6 +8,7 @@ public class APIResponseModel {
     private String id;
     private String email;
     private String imageURL;
+    private String fpo_id;
     public APIResponseModel() {
     }
 
@@ -75,5 +76,13 @@ public class APIResponseModel {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public String getFpo_id() {
+        return fpo_id;
+    }
+
+    public void setFpo_id(String fpo_id) {
+        this.fpo_id = fpo_id;
     }
 }

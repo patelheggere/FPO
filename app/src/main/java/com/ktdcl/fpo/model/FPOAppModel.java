@@ -21,7 +21,7 @@ public class FPOAppModel implements Parcelable {
     public String dob;
     public String gender;
     public String kottigeArea, kottigeRemarks;
-    public String mainIncomeSource, secondIncomeSource;
+    public String mainIncomeSource, secondIncomeSource, ceo_id;
 
     public List<LandDetailsModel> landDetailsModelList;
     public List<CropDetailsModel> cropDetailsModelList;
@@ -172,6 +172,14 @@ public class FPOAppModel implements Parcelable {
             return new FPOAppModel[size];
         }
     };
+
+    public String getCeo_id() {
+        return ceo_id;
+    }
+
+    public void setCeo_id(String ceo_id) {
+        this.ceo_id = ceo_id;
+    }
 
     public String getName() {
         return name;

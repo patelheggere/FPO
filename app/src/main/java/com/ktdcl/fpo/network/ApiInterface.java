@@ -78,7 +78,7 @@ public interface ApiInterface {
     @POST("InsertFPODetails.php")
     Call<ResponseModel> insertFPO(@Body FPOAppModel fpoAppModel);
 
-    @GET("VerifyUser.php")
+    @GET("FPOVerifyUser.php")
     Call<APIResponseModel> verifyUser(@Query("phone") String phone, @Query("pwd") String pwd);
 
 

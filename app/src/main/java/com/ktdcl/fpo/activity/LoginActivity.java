@@ -24,6 +24,7 @@ import com.ktdcl.fpo.model.LoginModel;
 import com.ktdcl.fpo.model.TalukModel;
 import com.ktdcl.fpo.model.VillageModel;
 import com.ktdcl.fpo.network.ApiInterface;
+import com.ktdcl.fpo.network.RetrofitInstance;
 import com.ktdcl.fpo.utils.SharedPrefsHelper;
 
 import java.util.List;
@@ -89,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        setUpNetwork();
         initView();
         initData();
     }
@@ -110,6 +112,11 @@ public class LoginActivity extends AppCompatActivity {
                 submitLoginDetails();
             }
         });
+    }
+    private void setUpNetwork() {
+        RetrofitInstance retrofitInstance = new RetrofitInstance();
+        retrofitInstance.setClient();
+        apiInterface = retrofitInstance.getClient().create(ApiInterface.class);
     }
 
     private void submitLoginDetails() {
@@ -140,6 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPrefsHelper.getInstance().save(NAME,response.body().getName());
                     SharedPrefsHelper.getInstance().save(MOBILE, response.body().getPhone());
                     SharedPrefsHelper.getInstance().save(EMAIL, response.body().getEmail());
+                    SharedPrefsHelper.getInstance().save("FPO_ID", response.body().getFpo_id());
                     SharedPrefsHelper.getInstance().save("PICK_URL", response.body().getImageURL());
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
