@@ -40,7 +40,7 @@
             android:layout_height="match_parent"
             android:maxLines="1"
             android:imeOptions="actionNext"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:hint="@string/land_area" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -195,7 +195,7 @@
             android:layout_height="match_parent"
             android:maxLines="1"
             android:imeOptions="actionNext"
-            android:inputType="number"
+            android:inputType="text"
             android:hint="@string/survey_num" />
     </com.google.android.material.textfield.TextInputLayout>
 
