@@ -1,4 +1,5 @@
 package com.ktdcl.fpo.network;
+import com.ktdcl.fpo.model.APIResponseModel;
 import com.ktdcl.fpo.model.BankNameModel;
 import com.ktdcl.fpo.model.DistrictModel;
 import com.ktdcl.fpo.model.FPOAppModel;
@@ -76,5 +77,9 @@ public interface ApiInterface {
 
     @POST("InsertFPODetails.php")
     Call<ResponseModel> insertFPO(@Body FPOAppModel fpoAppModel);
+
+    @GET("FPOVerifyUser.php")
+    Call<APIResponseModel> verifyUser(@Query("phone") String phone, @Query("pwd") String pwd);
+
 
 }

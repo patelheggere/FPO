@@ -6,16 +6,21 @@ public class LandDetailsModel {
     private String land;
     private String landValue;
     private String crop;
+    private String village;
+    private String taluk, district;
 
     public LandDetailsModel() {
     }
 
-    public LandDetailsModel(String landType, String surveyNumber, String land, String landValue, String crop) {
+    public LandDetailsModel(String landType, String surveyNumber, String land, String landValue, String crop, String village, String taluk, String district) {
         this.landType = landType;
         this.surveyNumber = surveyNumber;
         this.land = land;
         this.landValue = landValue;
         this.crop = crop;
+        this.village = village;
+        this.taluk = taluk;
+        this.district = district;
     }
 
     public String getLandType() {
@@ -56,5 +61,29 @@ public class LandDetailsModel {
 
     public void setCrop(String crop) {
         this.crop = crop;
+    }
+
+    public String getVillage() {
+        return village;
+    }
+
+    public void setVillage(String village) {
+        this.village = village;
+    }
+
+    public String getTaluk() {
+        return taluk;
+    }
+
+    public void setTaluk(String taluk) {
+        this.taluk = taluk;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 }

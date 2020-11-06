@@ -20,6 +20,7 @@ import com.ktdcl.fpo.model.ResponseModel;
 import com.ktdcl.fpo.network.ApiInterface;
 import com.ktdcl.fpo.network.RetrofitInstance;
 import com.ktdcl.fpo.utils.AppUtils;
+import com.ktdcl.fpo.utils.SharedPrefsHelper;
 
 import org.json.JSONObject;
 
@@ -98,6 +99,7 @@ public class SecondMainActivity extends AppCompatActivity implements BasicDetail
             Gson gson = new Gson();
             String jsonObject = gson.toJson(uri);
             setUpNetwork();
+            fpoAppModel.setCeo_id(SharedPrefsHelper.getInstance().get("FPO_ID").toString());
             Call<ResponseModel> responseModelCall = apiInterface.insertFPO(fpoAppModel);
             responseModelCall.enqueue(new Callback<ResponseModel>() {
                 @Override
