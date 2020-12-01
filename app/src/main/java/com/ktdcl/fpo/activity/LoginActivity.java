@@ -18,6 +18,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.ktdcl.fpo.MainActivity;
 import com.ktdcl.fpo.R;
+import com.ktdcl.fpo.SecondMainActivity;
 import com.ktdcl.fpo.model.APIResponseModel;
 import com.ktdcl.fpo.model.DistrictModel;
 import com.ktdcl.fpo.model.LoginModel;
@@ -149,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPrefsHelper.getInstance().save(EMAIL, response.body().getEmail());
                     SharedPrefsHelper.getInstance().save("FPO_ID", response.body().getFpo_id());
                     SharedPrefsHelper.getInstance().save("PICK_URL", response.body().getImageURL());
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this, LandingPageActivity.class));
                     finish();
                 }else{
                     mButtonLoginSubmit.setEnabled(true);

@@ -3,6 +3,7 @@ import com.ktdcl.fpo.model.APIResponseModel;
 import com.ktdcl.fpo.model.BankNameModel;
 import com.ktdcl.fpo.model.DistrictModel;
 import com.ktdcl.fpo.model.FPOAppModel;
+import com.ktdcl.fpo.model.FarmerModel;
 import com.ktdcl.fpo.model.LetterModel;
 import com.ktdcl.fpo.model.ResponseModel;
 import com.ktdcl.fpo.model.RevenueData;
@@ -81,5 +82,7 @@ public interface ApiInterface {
     @GET("FPOVerifyUser.php")
     Call<APIResponseModel> verifyUser(@Query("phone") String phone, @Query("pwd") String pwd);
 
+    @GET("GetFarmersByCEO.php")
+    Call<List<FarmerModel>> GetFarmersByCEO(@Query("ID") String id);
 
 }

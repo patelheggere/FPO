@@ -75,7 +75,7 @@
             android:layout_height="match_parent"
             android:maxLines="1"
             android:imeOptions="actionNext"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:hint="@string/land_area" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
