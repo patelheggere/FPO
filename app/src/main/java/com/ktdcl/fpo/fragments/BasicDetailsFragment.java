@@ -37,6 +37,7 @@ import com.ktdcl.fpo.model.TalukModel;
 import com.ktdcl.fpo.model.VillageModel;
 import com.ktdcl.fpo.network.ApiInterface;
 import com.ktdcl.fpo.network.RetrofitInstance;
+import com.ktdcl.fpo.utils.SharedPrefsHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -503,6 +504,11 @@ public class BasicDetailsFragment extends Fragment {
                     fpoAppModel.setWorkingInLand(workerCount);
 
                     fpoAppModel.setLandDetailsModelList(landDetailsModelList);
+                    DatabaseReference databaseReference = KtdclApplication.getFireBaseRef();
+                    databaseReference = databaseReference.child("FPO").child("DataSave").child(SharedPrefsHelper.getInstance().get("FPO_ID").toString());
+                    databaseReference.setValue(fpoAppModel);
+                    databaseReference = databaseReference.child("FPO").child("DataSaveStage").child(SharedPrefsHelper.getInstance().get("FPO_ID").toString());
+                    databaseReference.setValue("Basic");
                     mListener.onFragmentInteractionBasic(fpoAppModel);
 
                 }

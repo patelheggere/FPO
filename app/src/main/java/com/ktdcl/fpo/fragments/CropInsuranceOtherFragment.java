@@ -18,6 +18,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DatabaseReference;
+import com.ktdcl.fpo.KtdclApplication;
 import com.ktdcl.fpo.R;
 import com.ktdcl.fpo.model.AgToolsPurchaseModel;
 import com.ktdcl.fpo.model.CropInsuranceModel;
@@ -266,6 +268,12 @@ public class CropInsuranceOtherFragment extends Fragment {
                 fpoAppModel.setIctInstalled(radioButton8.getText().toString());
                 if(mListener!=null)
                 {
+                    DatabaseReference databaseReference = KtdclApplication.getFireBaseRef();
+                    databaseReference = databaseReference.child("FPO").child("DataSave").child(fpoAppModel.getAadha());
+                    databaseReference.setValue(fpoAppModel);
+                    databaseReference = databaseReference.child("FPO").child("DataSaveStage").child(fpoAppModel.getAadha());
+                    databaseReference.setValue("Insurance");
+
                     mListener.onFragmentInteractionCrop(fpoAppModel);
                 }
             }

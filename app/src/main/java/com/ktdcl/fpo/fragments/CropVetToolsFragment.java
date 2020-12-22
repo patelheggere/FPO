@@ -237,7 +237,11 @@ public class CropVetToolsFragment extends Fragment {
 
                     fpoAppModel.setBankName(bankName);
 
-
+                    DatabaseReference databaseReference = KtdclApplication.getFireBaseRef();
+                    databaseReference = databaseReference.child("FPO").child("DataSave").child(fpoAppModel.getAadha());
+                    databaseReference.setValue(fpoAppModel);
+                    databaseReference = databaseReference.child("FPO").child("DataSaveStage").child(fpoAppModel.getAadha());
+                    databaseReference.setValue("Vet");
 
                     mListener.onFragmentInteractionVet(fpoAppModel);
                 }

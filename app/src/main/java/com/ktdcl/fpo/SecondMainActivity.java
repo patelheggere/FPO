@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.gson.Gson;
 import com.ktdcl.fpo.fragments.BasicDetailsFragment;
 import com.ktdcl.fpo.fragments.CropInsuranceOtherFragment;
@@ -112,13 +113,20 @@ public class SecondMainActivity extends AppCompatActivity implements BasicDetail
                         BasicDetailsFragment fragment = new BasicDetailsFragment();
                         fragmentTransaction.replace(R.id.container, fragment, "basic");
                         fragmentTransaction.commit();
+
+                        DatabaseReference databaseReference = KtdclApplication.getFireBaseRef();
+                        databaseReference = databaseReference.child("FPO").child("DataSave").child(fpoAppModel.getAadha());
+                        databaseReference.removeValue();
+                        databaseReference = databaseReference.child("FPO").child("DataSaveStage").child(fpoAppModel.getAadha());
+                        databaseReference.removeValue();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel> call, Throwable t) {
                     Log.d(TAG, "onFailure: ");
-                    AppUtils.showToast(getString(R.string.failure));
+                    AppUtils.showToast("Data not saved");
+                  //  AppUtils.showToast(getString(R.string.failure));
                 }
             });
         }else{

@@ -41,10 +41,12 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.ktdcl.fpo.KtdclApplication;
 import com.ktdcl.fpo.R;
 import com.ktdcl.fpo.model.FPOAppModel;
 import com.ktdcl.fpo.model.MarketDetailsModel;
@@ -351,6 +353,11 @@ public class MarketingDetailsFragment extends Fragment {
                     }
 
                     fpoAppModel.setMarketDetailsModelList(marketDetailsModelList);
+                    DatabaseReference databaseReference = KtdclApplication.getFireBaseRef();
+                    databaseReference = databaseReference.child("FPO").child("DataSave").child(fpoAppModel.getAadha());
+                    databaseReference.setValue(fpoAppModel);
+                    databaseReference = databaseReference.child("FPO").child("DataSaveStage").child(fpoAppModel.getAadha());
+                    databaseReference.setValue("Market");
                     mListener.onFragmentInteractionMarket(fpoAppModel);
                 }
             }
