@@ -1,6 +1,9 @@
 package com.ktdcl.fpo.model;
 
-public class LandDetailsModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class LandDetailsModel implements Parcelable {
     private String landType;
     private String surveyNumber;
     private String land;
@@ -22,6 +25,46 @@ public class LandDetailsModel {
         this.taluk = taluk;
         this.district = district;
     }
+
+    protected LandDetailsModel(Parcel in) {
+        landType = in.readString();
+        surveyNumber = in.readString();
+        land = in.readString();
+        landValue = in.readString();
+        crop = in.readString();
+        village = in.readString();
+        taluk = in.readString();
+        district = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(landType);
+        dest.writeString(surveyNumber);
+        dest.writeString(land);
+        dest.writeString(landValue);
+        dest.writeString(crop);
+        dest.writeString(village);
+        dest.writeString(taluk);
+        dest.writeString(district);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<LandDetailsModel> CREATOR = new Creator<LandDetailsModel>() {
+        @Override
+        public LandDetailsModel createFromParcel(Parcel in) {
+            return new LandDetailsModel(in);
+        }
+
+        @Override
+        public LandDetailsModel[] newArray(int size) {
+            return new LandDetailsModel[size];
+        }
+    };
 
     public String getLandType() {
         return landType;

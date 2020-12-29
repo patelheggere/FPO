@@ -29,7 +29,7 @@ public class LandingPageActivity extends AppCompatActivity {
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LandingPageActivity.this, SecondMainActivity.class);
+                Intent intent = new Intent(LandingPageActivity.this, BasicDetailsActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,6 +1,9 @@
 package com.ktdcl.fpo.model;
 
-public class MarketDetailsModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class MarketDetailsModel implements Parcelable {
     private String cropName;
     private String obtainedProduct;
     private String retainedProduct, soldProduct, marketDistance, productPrice;
@@ -21,6 +24,50 @@ public class MarketDetailsModel {
         this.productRange = productRange;
         this.rateInfo = rateInfo;
     }
+
+    protected MarketDetailsModel(Parcel in) {
+        cropName = in.readString();
+        obtainedProduct = in.readString();
+        retainedProduct = in.readString();
+        soldProduct = in.readString();
+        marketDistance = in.readString();
+        productPrice = in.readString();
+        marketName = in.readString();
+        transportMethod = in.readString();
+        productRange = in.readString();
+        rateInfo = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(cropName);
+        dest.writeString(obtainedProduct);
+        dest.writeString(retainedProduct);
+        dest.writeString(soldProduct);
+        dest.writeString(marketDistance);
+        dest.writeString(productPrice);
+        dest.writeString(marketName);
+        dest.writeString(transportMethod);
+        dest.writeString(productRange);
+        dest.writeString(rateInfo);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<MarketDetailsModel> CREATOR = new Creator<MarketDetailsModel>() {
+        @Override
+        public MarketDetailsModel createFromParcel(Parcel in) {
+            return new MarketDetailsModel(in);
+        }
+
+        @Override
+        public MarketDetailsModel[] newArray(int size) {
+            return new MarketDetailsModel[size];
+        }
+    };
 
     public String getCropName() {
         return cropName;

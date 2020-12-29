@@ -1,6 +1,9 @@
 package com.ktdcl.fpo.model;
 
-public class AgToolsModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class AgToolsModel implements Parcelable {
     private String type, units, rate;
 
     public AgToolsModel() {
@@ -11,6 +14,36 @@ public class AgToolsModel {
         this.units = units;
         this.rate = rate;
     }
+
+    protected AgToolsModel(Parcel in) {
+        type = in.readString();
+        units = in.readString();
+        rate = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(type);
+        dest.writeString(units);
+        dest.writeString(rate);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<AgToolsModel> CREATOR = new Creator<AgToolsModel>() {
+        @Override
+        public AgToolsModel createFromParcel(Parcel in) {
+            return new AgToolsModel(in);
+        }
+
+        @Override
+        public AgToolsModel[] newArray(int size) {
+            return new AgToolsModel[size];
+        }
+    };
 
     public String getType() {
         return type;
