@@ -2,6 +2,7 @@ package com.ktdcl.fpo.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
+import com.google.gson.Gson;
 import com.ktdcl.fpo.KtdclApplication;
 import com.ktdcl.fpo.R;
 import com.ktdcl.fpo.model.AgToolsPurchaseModel;
@@ -75,18 +77,18 @@ public class CropInsuranceActivity extends AppCompatActivity {
     private Spinner spSeedsBaseName, spPesticidesNames ;
 
     private List<String> pesticidesList = new ArrayList<>();
+    private Button mButtonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_insurance);
+        String str = getIntent().getStringExtra("Data");
+        fpoAppModel = new Gson().fromJson(str, FPOAppModel.class);
         initViews();
         initData();
         initListeners();
-        if(fpoAppModel==null)
-        {
-            fpoAppModel = new FPOAppModel();
-        }
+
     }
 
     private void initListeners() {
@@ -197,8 +199,8 @@ public class CropInsuranceActivity extends AppCompatActivity {
                 cropParihara = editTextInsuranceReceived.getText().toString();
                 premiumPaid = editTextPaidPremium.getText().toString();
 
-                RadioGroup radioGroup = mView.findViewById(R.id.rg_crop_lost);
-                RadioButton radioButton = mView.findViewById(radioGroup.getCheckedRadioButtonId());
+                RadioGroup radioGroup = findViewById(R.id.rg_crop_lost);
+                RadioButton radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
 
                 CropInsuranceModel cropInsuranceModel = new CropInsuranceModel();
                 cropInsuranceModel.setCropName(cropNameInsured);
@@ -210,35 +212,35 @@ public class CropInsuranceActivity extends AppCompatActivity {
                 cropInsuranceModelList.add(cropInsuranceModel);
                 fpoAppModel.setCropInsuranceModels(cropInsuranceModelList);
 
-                RadioButton radioButton1 = mView.findViewById(radioGroupSoilTest.getCheckedRadioButtonId());
+                RadioButton radioButton1 = findViewById(radioGroupSoilTest.getCheckedRadioButtonId());
                 fpoAppModel.setSoilTested(radioButton1.getText().toString());
 
-                RadioButton radioButton2 = mView.findViewById(RGAdoptedSoilTest.getCheckedRadioButtonId());
+                RadioButton radioButton2 = findViewById(RGAdoptedSoilTest.getCheckedRadioButtonId());
                 fpoAppModel.setDidSoilTestImplemented(radioButton2.getText().toString());
 
-                RadioButton radioButton3 = mView.findViewById(RGAdvancedCultivation.getCheckedRadioButtonId());
+                RadioButton radioButton3 = findViewById(RGAdvancedCultivation.getCheckedRadioButtonId());
                 fpoAppModel.setAdvanceSeedsUsed(radioButton3.getText().toString());
 
-                RadioButton radioButton4 = mView.findViewById(RGAdvancedIrrigation.getCheckedRadioButtonId());
+                RadioButton radioButton4 = findViewById(RGAdvancedIrrigation.getCheckedRadioButtonId());
                 fpoAppModel.setAdvancedIrrigation(radioButton4.getText().toString());
 
-                RadioButton radioButton5 = mView.findViewById(RGPestControl.getCheckedRadioButtonId());
+                RadioButton radioButton5 = findViewById(RGPestControl.getCheckedRadioButtonId());
                 fpoAppModel.setPestControlled(radioButton5.getText().toString());
 
-                RadioButton radioButton6 = mView.findViewById(RGPestControl.getCheckedRadioButtonId());
+                RadioButton radioButton6 = findViewById(RGPestControl.getCheckedRadioButtonId());
                 fpoAppModel.setPestControlled(radioButton6.getText().toString());
 
-                RadioButton radioButton7 = mView.findViewById(RGICTComm.getCheckedRadioButtonId());
+                RadioButton radioButton7 = findViewById(RGICTComm.getCheckedRadioButtonId());
                 fpoAppModel.setIctInstalled(radioButton7.getText().toString());
 
-                RadioButton radioButton8 = mView.findViewById(RGCropTech.getCheckedRadioButtonId());
+                RadioButton radioButton8 = findViewById(RGCropTech.getCheckedRadioButtonId());
                 fpoAppModel.setIctInstalled(radioButton8.getText().toString());
-                
-                    DatabaseReference databaseReference = KtdclApplication.getFireBaseRef();
-                    databaseReference = databaseReference.child("FPO").child("DataSave").child(fpoAppModel.getAadha());
-                    databaseReference.setValue(fpoAppModel);
-                    databaseReference = databaseReference.child("FPO").child("DataSaveStage").child(fpoAppModel.getAadha());
-                    databaseReference.setValue("Insurance");
+
+                Intent intent = new Intent(CropInsuranceActivity.this, MarketingDetailsActivity.class);
+                Gson gson = new Gson();
+                String str = gson.toJson(fpoAppModel);
+                intent.putExtra("Data", str);
+                startActivity(intent);
 
                  //   mListener.onFragmentInteractionCrop(fpoAppModel);
                 
@@ -333,85 +335,92 @@ public class CropInsuranceActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        linearLayoutSeedsLoanLyt = mView.findViewById(R.id.seeds_loan_lyt);
-        linearLayoutPlantsLoanLyt = mView.findViewById(R.id.plants_loan_lyt);
-        linearLayoutFertLoanLyt = mView.findViewById(R.id.ferti_loan_lyt);
-        linearLayoutPestLoanLyt = mView.findViewById(R.id.pest_loan_lyt);
-        linearLayoutBioPestLoanLyt = mView.findViewById(R.id.bio_pest_lyt);
-        linearLayoutOrgManureLoanLyt = mView.findViewById(R.id.org_manu_lyt);
-        linearLayoutToolsLoanLyt = mView.findViewById(R.id.tools_loan_lyt);
+        mButtonBack = findViewById(R.id.btn_back);
+        mButtonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        linearLayoutSeedsLoanLyt = findViewById(R.id.seeds_loan_lyt);
+        linearLayoutPlantsLoanLyt = findViewById(R.id.plants_loan_lyt);
+        linearLayoutFertLoanLyt = findViewById(R.id.ferti_loan_lyt);
+        linearLayoutPestLoanLyt = findViewById(R.id.pest_loan_lyt);
+        linearLayoutBioPestLoanLyt = findViewById(R.id.bio_pest_lyt);
+        linearLayoutOrgManureLoanLyt = findViewById(R.id.org_manu_lyt);
+        linearLayoutToolsLoanLyt = findViewById(R.id.tools_loan_lyt);
 
-        yearPicker = mView.findViewById(R.id.year_picker);
-        mButtonSave = mView.findViewById(R.id.btn_submit);
-        RGSoilTestYear = mView.findViewById(R.id.et_soil_test_year);
-        mLinearLayoutSoilTest = mView.findViewById(R.id.linearlayout_soil_test);
+        yearPicker = findViewById(R.id.year_picker);
+        mButtonSave = findViewById(R.id.btn_submit);
+        RGSoilTestYear = findViewById(R.id.et_soil_test_year);
+        mLinearLayoutSoilTest = findViewById(R.id.linearlayout_soil_test);
 
-        spSeedsBaseName = mView.findViewById(R.id.et_root_name);
-        editTextSeedsIfLoanTenure = mView.findViewById(R.id.seeds_loan_tenure);
-        editTextseedsROI = mView.findViewById(R.id.et_seeds_ri);
-        editTextseedsQuantity = mView.findViewById(R.id.seeds_qty);
+        spSeedsBaseName = findViewById(R.id.et_root_name);
+        editTextSeedsIfLoanTenure = findViewById(R.id.seeds_loan_tenure);
+        editTextseedsROI = findViewById(R.id.et_seeds_ri);
+        editTextseedsQuantity = findViewById(R.id.seeds_qty);
 
-        editTextPlantBaseName = mView.findViewById(R.id.et_plant_root_name);
-        editTextPlantIfLoanTenure = mView.findViewById(R.id.et_plant_loan_tenure);
-        editTextplantROI = mView.findViewById(R.id.et_plant_loan_ri);
-        editTextplantQuantity = mView.findViewById(R.id.et_plant_qty);
+        editTextPlantBaseName = findViewById(R.id.et_plant_root_name);
+        editTextPlantIfLoanTenure = findViewById(R.id.et_plant_loan_tenure);
+        editTextplantROI = findViewById(R.id.et_plant_loan_ri);
+        editTextplantQuantity = findViewById(R.id.et_plant_qty);
 
-        editTextFertilizerBaseName = mView.findViewById(R.id.et_fertilizer_root_name);
-        editTextFertilizerIfLoanTenure = mView.findViewById(R.id.et_fert_loan_tenure);
-        editTextFertilizerROI = mView.findViewById(R.id.et_fert_loan_ri);
-        editTextFertilizerQuantity = mView.findViewById(R.id.et_fert_qty);
+        editTextFertilizerBaseName = findViewById(R.id.et_fertilizer_root_name);
+        editTextFertilizerIfLoanTenure = findViewById(R.id.et_fert_loan_tenure);
+        editTextFertilizerROI = findViewById(R.id.et_fert_loan_ri);
+        editTextFertilizerQuantity = findViewById(R.id.et_fert_qty);
 
-        editTextOrganicManureBaseName = mView.findViewById(R.id.et_org_man_root_name);
-        editTextOrganicManureIfLoanTenure = mView.findViewById(R.id.et_org_man_loan_tenure);
-        editTextOrganicManureROI = mView.findViewById(R.id.et_org_man_loan_ri);
-        editTextOrganicManureQuantity = mView.findViewById(R.id.et_org_man_qty);
+        editTextOrganicManureBaseName = findViewById(R.id.et_org_man_root_name);
+        editTextOrganicManureIfLoanTenure = findViewById(R.id.et_org_man_loan_tenure);
+        editTextOrganicManureROI = findViewById(R.id.et_org_man_loan_ri);
+        editTextOrganicManureQuantity = findViewById(R.id.et_org_man_qty);
 
-        editTextPesticidesBaseName = mView.findViewById(R.id.et_pest_root_name);
-        editTextPesticidesIfLoanTenure = mView.findViewById(R.id.et_pest_loan_tenure);
-        editTextPesticidesROI = mView.findViewById(R.id.et_pest_loan_ri);
-        editTextPesticidesQuantity = mView.findViewById(R.id.et_pest_qty);
+        editTextPesticidesBaseName = findViewById(R.id.et_pest_root_name);
+        editTextPesticidesIfLoanTenure = findViewById(R.id.et_pest_loan_tenure);
+        editTextPesticidesROI = findViewById(R.id.et_pest_loan_ri);
+        editTextPesticidesQuantity = findViewById(R.id.et_pest_qty);
 
-        editTextToolsMachinesBaseName = mView.findViewById(R.id.et_tools_machine_root_name);
-        editTextToolsMachinesIfLoanTenure = mView.findViewById(R.id.et_tools_machine_loan_tenure);
-        editTextToolsMachinesROI = mView.findViewById(R.id.et_tools_machine_loan_ri);
-        editTextToolsMachinesQuantity = mView.findViewById(R.id.et_tools_machine_qty);
+        editTextToolsMachinesBaseName = findViewById(R.id.et_tools_machine_root_name);
+        editTextToolsMachinesIfLoanTenure = findViewById(R.id.et_tools_machine_loan_tenure);
+        editTextToolsMachinesROI = findViewById(R.id.et_tools_machine_loan_ri);
+        editTextToolsMachinesQuantity = findViewById(R.id.et_tools_machine_qty);
 
-        editTextBioFertilizerBaseName = mView.findViewById(R.id.et_bio_pest_root_name);
-        editTextBioFertilizerIfLoanTenure = mView.findViewById(R.id.et_bio_pest_loan_tenure);
-        editTextBioFertilizerROI = mView.findViewById(R.id.et_bio_pest_loan_ri);
-        editTextBioFertilizerQuantity = mView.findViewById(R.id.et_bio_pest_qty);
+        editTextBioFertilizerBaseName = findViewById(R.id.et_bio_pest_root_name);
+        editTextBioFertilizerIfLoanTenure = findViewById(R.id.et_bio_pest_loan_tenure);
+        editTextBioFertilizerROI = findViewById(R.id.et_bio_pest_loan_ri);
+        editTextBioFertilizerQuantity = findViewById(R.id.et_bio_pest_qty);
 
-        editTextCropInsureYear = mView.findViewById(R.id.et_year);
-        editTextCropName = mView.findViewById(R.id.et_crop_name);
-        editTextPaidPremium = mView.findViewById(R.id.et_premium);
-        editTextInsuranceReceived = mView.findViewById(R.id.et_parihara);
+        editTextCropInsureYear = findViewById(R.id.et_year);
+        editTextCropName = findViewById(R.id.et_crop_name);
+        editTextPaidPremium = findViewById(R.id.et_premium);
+        editTextInsuranceReceived = findViewById(R.id.et_parihara);
 
-        radioGroupSeedsPurchaseMode = mView.findViewById(R.id.seeds_purchase_method);
-        radioGroupPlantsPurchaseMode = mView.findViewById(R.id.plant_purchase_method);
-        radioGroupFertilizerPurchaseMode = mView.findViewById(R.id.fert_purchase_method);
-        radioGroupPestPurchaseMode = mView.findViewById(R.id.pest_purchase_method);
-        radioGroupOrgManurePurchaseMode = mView.findViewById(R.id.org_man_purchase_method);
-        radioGroupToolsMachinePurchaseMode = mView.findViewById(R.id.tools_machine_purchase_method);
-        radioGroupBioFertPurchaseMode = mView.findViewById(R.id.bio_pest_purchase_method);
+        radioGroupSeedsPurchaseMode = findViewById(R.id.seeds_purchase_method);
+        radioGroupPlantsPurchaseMode = findViewById(R.id.plant_purchase_method);
+        radioGroupFertilizerPurchaseMode = findViewById(R.id.fert_purchase_method);
+        radioGroupPestPurchaseMode = findViewById(R.id.pest_purchase_method);
+        radioGroupOrgManurePurchaseMode = findViewById(R.id.org_man_purchase_method);
+        radioGroupToolsMachinePurchaseMode = findViewById(R.id.tools_machine_purchase_method);
+        radioGroupBioFertPurchaseMode = findViewById(R.id.bio_pest_purchase_method);
 
-        radioGroupSeedsLoanPercentage = mView.findViewById(R.id.seeds_purc_loan_perc);
-        radioGroupPlantsLoanPercentage = mView.findViewById(R.id.plant_purc_loan_perc);
-        radioGroupFertilizerLoanPercentage = mView.findViewById(R.id.fert_purc_loan_perc);
-        radioGroupOrgManureLoanPercentage = mView.findViewById(R.id.org_man_purc_loan_perc);
-        radioGroupPestLoanPercentage = mView.findViewById(R.id.pest_purc_loan_perc);
-        radioGroupToolsMachineLoanPercentage = mView.findViewById(R.id.tools_machine_purc_loan_perc);
-        radioGroupBioFertLoanPercentage = mView.findViewById(R.id.bio_pest_purc_loan_perc);
+        radioGroupSeedsLoanPercentage = findViewById(R.id.seeds_purc_loan_perc);
+        radioGroupPlantsLoanPercentage = findViewById(R.id.plant_purc_loan_perc);
+        radioGroupFertilizerLoanPercentage = findViewById(R.id.fert_purc_loan_perc);
+        radioGroupOrgManureLoanPercentage = findViewById(R.id.org_man_purc_loan_perc);
+        radioGroupPestLoanPercentage = findViewById(R.id.pest_purc_loan_perc);
+        radioGroupToolsMachineLoanPercentage = findViewById(R.id.tools_machine_purc_loan_perc);
+        radioGroupBioFertLoanPercentage = findViewById(R.id.bio_pest_purc_loan_perc);
 
-        radioGroupCropLost = mView.findViewById(R.id.rg_crop_lost);
-        radioGroupSoilTest = mView.findViewById(R.id.rg_soil_test);
-        RGAdoptedSoilTest = mView.findViewById(R.id.rg_soil_test_rec);
-        RGAdvancedCultivation = mView.findViewById(R.id.rg_improve_reform);
-        RGAdvancedIrrigation = mView.findViewById(R.id.rg_improve_irrigation);
-        RGPestControl = mView.findViewById(R.id.rg_improve_pest_control);
-        RGICTComm = mView.findViewById(R.id.rg_met_ict);
-        RGCropTech = mView.findViewById(R.id.rg_impl_samagra_crop);
+        radioGroupCropLost = findViewById(R.id.rg_crop_lost);
+        radioGroupSoilTest = findViewById(R.id.rg_soil_test);
+        RGAdoptedSoilTest = findViewById(R.id.rg_soil_test_rec);
+        RGAdvancedCultivation = findViewById(R.id.rg_improve_reform);
+        RGAdvancedIrrigation = findViewById(R.id.rg_improve_irrigation);
+        RGPestControl = findViewById(R.id.rg_improve_pest_control);
+        RGICTComm = findViewById(R.id.rg_met_ict);
+        RGCropTech = findViewById(R.id.rg_impl_samagra_crop);
 
-        // spPesticidesNames = mView.findViewById(R.id.)
+        // spPesticidesNames = findViewById(R.id.)
 
         radioGroupSoilTest.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -433,8 +442,8 @@ public class CropInsuranceActivity extends AppCompatActivity {
 
     private void getObjects(String name, int checkedRadioButtonId, String toString, int radioButtonId, String string, String s1){
         AgToolsPurchaseModel agToolsPurchaseModel = new AgToolsPurchaseModel();
-        RadioButton radioButtonLoan = mView.findViewById(radioButtonId);
-        RadioButton mode = mView.findViewById(checkedRadioButtonId);
+        RadioButton radioButtonLoan = findViewById(radioButtonId);
+        RadioButton mode = findViewById(checkedRadioButtonId);
         if(name!=null)
         {
             agToolsPurchaseModel.setToolType(name);

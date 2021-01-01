@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -66,6 +67,18 @@ public class AppUtils {
         } else {
             return true;
         }
+    }
+
+    public static String getVersion(final Context context){
+        try {
+            PackageInfo pInfo =context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            String version = pInfo.versionName;
+            return "V-"+version;
+        } catch (
+                PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     public static boolean checkPermissionCamera(final Context context)
     {

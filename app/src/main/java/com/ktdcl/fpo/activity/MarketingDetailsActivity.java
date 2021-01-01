@@ -16,6 +16,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,12 +44,18 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 import com.ktdcl.fpo.KtdclApplication;
 import com.ktdcl.fpo.R;
+import com.ktdcl.fpo.fragments.BasicDetailsFragment;
 import com.ktdcl.fpo.model.FPOAppModel;
 import com.ktdcl.fpo.model.MarketDetailsModel;
+import com.ktdcl.fpo.model.ResponseModel;
+import com.ktdcl.fpo.network.ApiInterface;
+import com.ktdcl.fpo.network.RetrofitInstance;
 import com.ktdcl.fpo.utils.AppUtils;
 import com.ktdcl.fpo.utils.FilePath;
+import com.ktdcl.fpo.utils.SharedPrefsHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -57,6 +65,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MarketingDetailsActivity extends AppCompatActivity {
     private static final String TAG = "MarketingDetailsFragmen";
@@ -76,27 +88,36 @@ public class MarketingDetailsActivity extends AppCompatActivity {
     private List<String> range;
     private List<String> marketInfo;
     private ImageView imageViewFarmerPhoto, imageViewAadharPhoto;
+    private Button mButtonBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marketing_details);
+        String str = getIntent().getStringExtra("Data");
+        fpoAppModel = new Gson().fromJson(str, FPOAppModel.class);
         initViews();
         initData();
         initListeners();
     }
     private void initViews() {
-        imageViewAadharPhoto = mView.findViewById(R.id.imageFarmerAadhar);
-        imageViewFarmerPhoto = mView.findViewById(R.id.imageFarmerPhoto);
-        buttonSave = mView.findViewById(R.id.button_save);
-        addCrop = mView.findViewById(R.id.addCrop);
-        removeCrop = mView.findViewById(R.id.removeCrop);
-        mLinearLayoutMarketView = mView.findViewById(R.id.market_view);
-        button_aadhar = mView.findViewById(R.id.button_aadhar);
-        button_photo = mView.findViewById(R.id.button_photo);
-        uploadPhoto = mView.findViewById(R.id.upload_photo);
-        uploadAadhar = mView.findViewById(R.id.upload_aadhar);
+        imageViewAadharPhoto = findViewById(R.id.imageFarmerAadhar);
+        imageViewFarmerPhoto = findViewById(R.id.imageFarmerPhoto);
+        buttonSave = findViewById(R.id.button_save);
+        addCrop = findViewById(R.id.addCrop);
+        removeCrop = findViewById(R.id.removeCrop);
+        mLinearLayoutMarketView = findViewById(R.id.market_view);
+        button_aadhar = findViewById(R.id.button_aadhar);
+        button_photo = findViewById(R.id.button_photo);
+        uploadPhoto = findViewById(R.id.upload_photo);
+        uploadAadhar = findViewById(R.id.upload_aadhar);
 
-
+        mButtonBack = findViewById(R.id.btn_back);
+        mButtonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void initData() {
@@ -272,10 +293,10 @@ public class MarketingDetailsActivity extends AppCompatActivity {
                         return;
                     }
                     marketDetailsModelList = new ArrayList<>();
-                    RadioGroup radioGroup = mView.findViewById(R.id.rg_drying_yard);
-                    RadioButton radioButton = mView.findViewById(radioGroup.getCheckedRadioButtonId());
-                    TextInputEditText model = mView.findViewById(R.id.model);
-                    TextInputEditText capacity = mView.findViewById(R.id.capacity);
+                    RadioGroup radioGroup = findViewById(R.id.rg_drying_yard);
+                    RadioButton radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                    TextInputEditText model = findViewById(R.id.model);
+                    TextInputEditText capacity = findViewById(R.id.capacity);
                     if(model!=null)
                     {
                         fpoAppModel.setModel(model.getText().toString());
@@ -290,17 +311,19 @@ public class MarketingDetailsActivity extends AppCompatActivity {
 
                     for(int i=0;i<count; i++)
                     {
-                        TextInputEditText cropName = mView.findViewWithTag(i+11);
-                        TextInputEditText obtainedProduct = mView.findViewWithTag(i+14);
-                        TextInputEditText cropRetained = mView.findViewWithTag(i+15);
-                        TextInputEditText soldProduct = mView.findViewWithTag(i+16);
-                        TextInputEditText marketDist = mView.findViewWithTag(i+17);
-                        TextInputEditText ratePerQuintol = mView.findViewWithTag(i+18);
 
-                        Spinner spinnerMarketName = mView.findViewWithTag(i+19);
-                        Spinner spinnerTransport = mView.findViewWithTag(i+20);
-                        Spinner spinnerCropRange = mView.findViewWithTag(i+21);
-                        Spinner spinnerRateInfo = mView.findViewWithTag(i+22);
+                        View view = views[i];
+                        TextInputEditText cropName = view.findViewById(R.id.et_crop_name);
+                        TextInputEditText obtainedProduct = view.findViewById(R.id.et_got_product);
+                        TextInputEditText cropRetained = view.findViewById(R.id.et_crop_retained);
+                        TextInputEditText soldProduct = view.findViewById(R.id.et_sold_product);
+                        TextInputEditText marketDist = view.findViewById(R.id.et_market_dist);
+                        TextInputEditText ratePerQuintol = view.findViewById(R.id.et_rate_per_qui);
+
+                        Spinner spinnerMarketName = view.findViewById(R.id.sp_marketname);
+                        Spinner spinnerTransport = view.findViewById(R.id.sp_transport_method);
+                        Spinner spinnerCropRange = view.findViewById(R.id.sp_crop_range);
+                        Spinner spinnerRateInfo = view.findViewById(R.id.sp_crop_rate_info);
 
                         MarketDetailsModel marketDetailsModel = new MarketDetailsModel();
                         marketDetailsModel.setCropName(cropName.getText().toString());
@@ -318,14 +341,61 @@ public class MarketingDetailsActivity extends AppCompatActivity {
                     }
 
                     fpoAppModel.setMarketDetailsModelList(marketDetailsModelList);
-                    DatabaseReference databaseReference = KtdclApplication.getFireBaseRef();
-                    databaseReference = databaseReference.child("FPO").child("DataSave").child(fpoAppModel.getAadha());
-                    databaseReference.setValue(fpoAppModel);
-                    databaseReference = databaseReference.child("FPO").child("DataSaveStage").child(fpoAppModel.getAadha());
-                    databaseReference.setValue("Market");
+
                    // mListener.onFragmentInteractionMarket(fpoAppModel);
+
+                if(checkInternet()) {
+                    Gson gson = new Gson();
+                    String jsonObject = gson.toJson(fpoAppModel);
+                    setUpNetwork();
+                    fpoAppModel.setCeo_id(SharedPrefsHelper.getInstance().get("FPO_ID").toString());
+                    Call<ResponseModel> responseModelCall = apiInterface.insertFPO(fpoAppModel);
+                    responseModelCall.enqueue(new Callback<ResponseModel>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                            Log.d(TAG, "onResponse: ");
+                            if (response.isSuccessful() && response.body().isStatus()) {
+                                AppUtils.showToast(getString(R.string.save_success));
+                                fpoAppModel = null;
+                                Intent i = new Intent(MarketingDetailsActivity.this, BasicDetailsActivity.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(i);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseModel> call, Throwable t) {
+                            Log.d(TAG, "onFailure: ");
+                            AppUtils.showToast("Data not saved");
+                            //  AppUtils.showToast(getString(R.string.failure));
+                        }
+                    });
+                }else{
+                    AppUtils.showToast(getString(R.string.internet));
+                }
             }
         });
+    }
+    private boolean checkInternet() {
+        ConnectivityManager mgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = mgr.getActiveNetworkInfo();
+
+        if (netInfo != null) {
+            if (netInfo.isConnected()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    private ApiInterface apiInterface;
+
+    private void setUpNetwork() {
+        RetrofitInstance retrofitInstance = new RetrofitInstance();
+        retrofitInstance.setClient();
+        apiInterface = retrofitInstance.getClient().create(ApiInterface.class);
     }
 
     private String userChoosenTask;

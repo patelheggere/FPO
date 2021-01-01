@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -77,7 +78,8 @@ public class CropVetToolsActivity extends AppCompatActivity {
     private List<AgToolsModel> agToolsModelList;
     private List<VetDetailsModel> vetDetailsModelList;
     private Button addCrop, removeCrop;
-    
+    private Button mButtonBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,19 +96,18 @@ public class CropVetToolsActivity extends AppCompatActivity {
         mButtonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
-
                     List<CropDetailsModel> cropDetailsModelList = new ArrayList<>();
                     for(int i=0;i<count; i++)
                     {
-                        Spinner crop = findViewById(R.id.sp_crop_list);
-                        TextInputEditText area = findViewById(R.id.et_crop_area);
-                        TextInputEditText et_crop_variety = findViewById(R.id.et_crop_variety);
-                        TextInputEditText et_manufacture_exp = findViewById(R.id.et_manufacture_exp);
+                        View view = views[i];
+                        Spinner crop = view.findViewById(R.id.sp_crop_list);
+                        TextInputEditText area = view.findViewById(R.id.et_crop_area);
+                        TextInputEditText et_crop_variety = view.findViewById(R.id.et_crop_variety);
+                        TextInputEditText et_manufacture_exp = view.findViewById(R.id.et_manufacture_exp);
 
-                        Spinner et_crop_yield = findViewById(R.id.sp_crop_yield);
-                        Spinner et_crop_sub_product = findViewById(R.id.sp_crop_yield);
-                        RadioGroup season = findViewById(R.id.rg);
+                        Spinner et_crop_yield = view.findViewById(R.id.sp_crop_yield);
+                        Spinner et_crop_sub_product = view.findViewById(R.id.sp_crop_yield);
+                        RadioGroup season = view.findViewById(R.id.rg);
 
                         CropDetailsModel cropDetailsModel = new CropDetailsModel();
                         if(crop.getSelectedItem()!=null)
@@ -210,11 +211,11 @@ public class CropVetToolsActivity extends AppCompatActivity {
 
                     fpoAppModel.setBankName(bankName);
 
-                    DatabaseReference databaseReference = KtdclApplication.getFireBaseRef();
-                    databaseReference = databaseReference.child("FPO").child("DataSave").child(fpoAppModel.getAadha());
-                    databaseReference.setValue(fpoAppModel);
-                    databaseReference = databaseReference.child("FPO").child("DataSaveStage").child(fpoAppModel.getAadha());
-                    databaseReference.setValue("Vet");
+                Intent intent = new Intent(CropVetToolsActivity.this, CropInsuranceActivity.class);
+                Gson gson = new Gson();
+                String str = gson.toJson(fpoAppModel);
+                intent.putExtra("Data", str);
+                startActivity(intent);
 
                  //   mListener.onFragmentInteractionVet(fpoAppModel);
                 
@@ -813,6 +814,13 @@ public class CropVetToolsActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        mButtonBack = findViewById(R.id.btn_back);
+        mButtonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         addCrop = findViewById(R.id.addCrop);
         removeCrop = findViewById(R.id.removeCrop);
         mLinearLayoutCropView = findViewById(R.id.cropDetailsView);

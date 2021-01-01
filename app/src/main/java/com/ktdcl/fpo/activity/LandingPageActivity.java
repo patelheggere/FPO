@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
 import com.ktdcl.fpo.R;
 import com.ktdcl.fpo.SecondMainActivity;
+import com.ktdcl.fpo.utils.AppUtils;
 import com.ktdcl.fpo.utils.SharedPrefsHelper;
 
 public class LandingPageActivity extends AppCompatActivity {
@@ -51,5 +53,11 @@ public class LandingPageActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_version, menu);
+        menu.getItem(0).setTitle(AppUtils.getVersion(LandingPageActivity.this));
+        return true;
     }
 }

@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,6 +35,7 @@ import com.ktdcl.fpo.model.TalukModel;
 import com.ktdcl.fpo.model.VillageModel;
 import com.ktdcl.fpo.network.ApiInterface;
 import com.ktdcl.fpo.network.RetrofitInstance;
+import com.ktdcl.fpo.utils.AppUtils;
 import com.ktdcl.fpo.utils.SharedPrefsHelper;
 
 import java.util.ArrayList;
@@ -433,16 +435,16 @@ public class BasicDetailsActivity extends AppCompatActivity {
                     for(int i=0;i<count; i++)
                     {
 
-                        TextInputEditText survey = findViewById(R.id.et_survey_no);
-                        TextInputEditText area = findViewById(R.id.et_land_dimen);
-                        TextInputEditText value = findViewById(R.id.et_land_value);
-                        Spinner crop = findViewById(R.id.sp_crop_list);
-                        RadioGroup radioGroup = findViewById(R.id.rg);
+                        View view = views[i];
+                        TextInputEditText survey = view.findViewById(R.id.et_survey_no);
+                        TextInputEditText area = view.findViewById(R.id.et_land_dimen);
+                        TextInputEditText value = view.findViewById(R.id.et_land_value);
+                        Spinner crop = view.findViewById(R.id.sp_crop_list);
+                        RadioGroup radioGroup = view.findViewById(R.id.rg);
 
-
-                        TextInputEditText dist = findViewById(R.id.et_district);
-                        TextInputEditText taluk = findViewById(R.id.et_taluk);
-                        TextInputEditText village = findViewById(R.id.et_village);
+                        TextInputEditText dist = view.findViewById(R.id.et_district);
+                        TextInputEditText taluk = view.findViewById(R.id.et_taluk);
+                        TextInputEditText village = view.findViewById(R.id.et_village);
 
 
                         LandDetailsModel landDetailsModel = new LandDetailsModel();
@@ -730,6 +732,12 @@ public class BasicDetailsActivity extends AppCompatActivity {
         apiInterface = retrofitInstance.getClient().create(ApiInterface.class);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_version, menu);
+        menu.getItem(0).setTitle(AppUtils.getVersion(BasicDetailsActivity.this));
+        return true;
+    }
     private void getTaluks(String dist_id) {
         progressbarLyt.setVisibility(View.VISIBLE);
         Call<List<TalukModel>> listCall = apiInterface.getTaluks(dist_id);

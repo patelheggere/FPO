@@ -1,6 +1,8 @@
 package com.ktdcl.fpo;
 
 import android.app.Application;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.StrictMode;
 
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +43,7 @@ public class KtdclApplication extends Application {
         }
         return databaseReference;
     }
+
 
     public static synchronized KtdclApplication getInstance() {
         return mInstance;
