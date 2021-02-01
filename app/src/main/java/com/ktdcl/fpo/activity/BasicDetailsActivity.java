@@ -79,7 +79,7 @@ public class BasicDetailsActivity extends AppCompatActivity {
     private  View[] views = new View[15];
 
     private TextInputEditText editTextAadhar, editTextFarmerName, editTextFatherName, editTextMobile, editTextFRUITSNo, editTextAge,
-            editTextFamilyIncomeSource, editTextSecondIncomeSource;
+            editTextFamilyIncomeSource, editTextSecondIncomeSource, editTextMainProfession, editTextSubProfession;
     private String gender, aadhar, farmerName, fatherName, phone, fruitsNo, age, menCount, womenCount, workerCount, childCount, educatedCount, mainIncome, secondIncome;
 
     private RadioGroup mRadioGroupGender;
@@ -299,6 +299,9 @@ public class BasicDetailsActivity extends AppCompatActivity {
         editTextAge = findViewById(R.id.et_age);
         editTextFamilyIncomeSource = findViewById(R.id.et_main_income_source);
         editTextSecondIncomeSource = findViewById(R.id.et_sec_income_source);
+
+        editTextMainProfession = findViewById(R.id.et_main_profession);
+        editTextSubProfession = findViewById(R.id.et_sub_profession);
     }
 
     FPOAppModel fpoAppModel = new FPOAppModel();
@@ -383,7 +386,7 @@ public class BasicDetailsActivity extends AppCompatActivity {
 
                     if(editTextAge.getText()!=null && editTextAge.getText().toString().length()>0 && Integer.parseInt(editTextAge.getText().toString())<100 )
                     {
-                        fpoAppModel.setPhone(editTextMobile.getText().toString());
+                        fpoAppModel.setAge(editTextAge.getText().toString());
                     }
                     else
                     {
@@ -391,6 +394,7 @@ public class BasicDetailsActivity extends AppCompatActivity {
                         editTextAge.setError(getString(R.string.enter_age));
                         return ;
                     }
+
                     if(memmber!=null)
                     {
                         fpoAppModel.setMemOfLocalOrg(memmber);
@@ -414,6 +418,8 @@ public class BasicDetailsActivity extends AppCompatActivity {
                     fpoAppModel.setGender(radioButton.getText().toString());
                     fpoAppModel.setMainIncomeSource(editTextFamilyIncomeSource.getText().toString());
                     fpoAppModel.setSecondIncomeSource(editTextSecondIncomeSource.getText().toString());
+                    fpoAppModel.setMainProfession(editTextMainProfession.getText().toString());
+                    fpoAppModel.setSubProfession(editTextSubProfession.getText().toString());
 
                     if(mainIncome!=null)
                     {

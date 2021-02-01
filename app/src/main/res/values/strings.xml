@@ -169,6 +169,8 @@
     <string name="educated_count">ಕುಟುಂಬದ ವಿದ್ಯಾವಂತರ ಸಂಖ್ಯೆ</string>
     <string name="main_income_source">ಕುಟುಂಬದ ಮುಖ್ಯ ಆದಾಯದ ಮೂಲ</string>
     <string name="sec_income_src">ದ್ವಿತೀಯ ಆದಾಯದ ಮೂಲ</string>
+    <string name="main_profession">ಮುಖ್ಯ ಕಸುಬು</string>
+    <string name="sub_profession">ಉಪ ಕಸುಬು</string>
     <string name="age">ವಯಸ್ಸು</string>
     <string name="land_details">ಭೂಮಿ ವಿವರಗಳು</string>
     <string name="survey_num">ಸರ್ವೆ ನಂ</string>

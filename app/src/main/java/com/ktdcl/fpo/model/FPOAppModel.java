@@ -22,6 +22,7 @@ public class FPOAppModel implements Parcelable {
     public String gender;
     public String kottigeArea, kottigeRemarks;
     public String mainIncomeSource, secondIncomeSource, ceo_id;
+    public String age;
 
     public List<LandDetailsModel> landDetailsModelList;
     public List<CropDetailsModel> cropDetailsModelList;
@@ -44,7 +45,7 @@ public class FPOAppModel implements Parcelable {
     public FPOAppModel() {
     }
 
-    public FPOAppModel(String sericultureIncome, String mainIncome, String secondIncomeSource, String name, String fruitsNo, String PAN, String religion, String caste, String mainProfession, String subProfession, String noGents, String noLadies, String noChildren, String fname, String workingInLand, String noOfEducated, String memOfLocalOrg, String aadha, String cropIncome, String agWorkIncome, String nonAgWorkIncome, String dairyIncome, String liveStockIncome, String phone, String govtDevelopmentIncome, String cropProcessingIncome, String otherIncome, String email, String isThereBankAcct, String bankName, String village, String taluk, String dist, String qualification, String tanda_resident, String gp, String otherPlace, String dob, String gender, String kottigeArea, String kottigeRemarks, List<LandDetailsModel> landDetailsModelList, List<CropDetailsModel> cropDetailsModelList, List<AgToolsModel> agToolsModelList, List<VetDetailsModel> vetDetailsModelList, List<AgToolsPurchaseModel> agToolsPurchaseModelList, List<CropInsuranceModel> cropInsuranceModels, String soilTested, String soilTestedYear, String didSoilTestImplemented, String advanceSeedsUsed, String advancedIrrigation, String pestControlled, String areYouVisitingAgUniveese, String ifYesWhom, String ictInstalled) {
+    public FPOAppModel(String age,String sericultureIncome, String mainIncome, String secondIncomeSource, String name, String fruitsNo, String PAN, String religion, String caste, String mainProfession, String subProfession, String noGents, String noLadies, String noChildren, String fname, String workingInLand, String noOfEducated, String memOfLocalOrg, String aadha, String cropIncome, String agWorkIncome, String nonAgWorkIncome, String dairyIncome, String liveStockIncome, String phone, String govtDevelopmentIncome, String cropProcessingIncome, String otherIncome, String email, String isThereBankAcct, String bankName, String village, String taluk, String dist, String qualification, String tanda_resident, String gp, String otherPlace, String dob, String gender, String kottigeArea, String kottigeRemarks, List<LandDetailsModel> landDetailsModelList, List<CropDetailsModel> cropDetailsModelList, List<AgToolsModel> agToolsModelList, List<VetDetailsModel> vetDetailsModelList, List<AgToolsPurchaseModel> agToolsPurchaseModelList, List<CropInsuranceModel> cropInsuranceModels, String soilTested, String soilTestedYear, String didSoilTestImplemented, String advanceSeedsUsed, String advancedIrrigation, String pestControlled, String areYouVisitingAgUniveese, String ifYesWhom, String ictInstalled) {
         this.sericultureIncome = sericultureIncome;
         this.mainIncomeSource = mainIncome;
         this.secondIncomeSource = secondIncomeSource;
@@ -101,6 +102,7 @@ public class FPOAppModel implements Parcelable {
         this.areYouVisitingAgUniveese = areYouVisitingAgUniveese;
         this.ifYesWhom = ifYesWhom;
         this.ictInstalled = ictInstalled;
+        this.age = age;
     }
 
     protected FPOAppModel(Parcel in) {
@@ -159,6 +161,7 @@ public class FPOAppModel implements Parcelable {
         capacity = in.readString();
         aadharPhoto = in.readString();
         photo = in.readString();
+        age = in.readString();
     }
 
     public static final Creator<FPOAppModel> CREATOR = new Creator<FPOAppModel>() {
@@ -637,6 +640,14 @@ public class FPOAppModel implements Parcelable {
         this.marketDetailsModelList = marketDetailsModelList;
     }
 
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
     public String getDryingYard() {
         return dryingYard;
     }
@@ -739,5 +750,6 @@ public class FPOAppModel implements Parcelable {
         dest.writeString(capacity);
         dest.writeString(aadharPhoto);
         dest.writeString(photo);
+        dest.writeString(age);
     }
 }
