@@ -20,23 +20,31 @@
         android:roundIcon="@drawable/tanda_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.BasicDetailsActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.MarketingDetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.CropVetToolsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.CropInsuranceActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.DashboardActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.LandingPageActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SecondMainActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.EditBasicDetailsActivity"></activity>
+        <activity
+            android:name=".activity.BasicDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MarketingDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CropVetToolsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CropInsuranceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DashboardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LandingPageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SecondMainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"

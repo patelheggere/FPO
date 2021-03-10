@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.ktdcl.fpo.Adapter.FarmersAdapter;
@@ -12,8 +14,10 @@ import com.ktdcl.fpo.R;
 import com.ktdcl.fpo.model.FarmerModel;
 import com.ktdcl.fpo.network.ApiInterface;
 import com.ktdcl.fpo.network.RetrofitInstance;
+import com.ktdcl.fpo.utils.RecyclerItemClickListener;
 import com.ktdcl.fpo.utils.SharedPrefsHelper;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,6 +31,7 @@ public class DashboardActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TextView textViewTotal;
     private FarmersAdapter adapter;
+    private List<FarmerModel> farmerModelList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +42,22 @@ public class DashboardActivity extends AppCompatActivity {
         textViewTotal = findViewById(R.id.total);
          LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DashboardActivity.this);
         //linearLayoutManager.setStackFromEnd(true);
+        farmerModelList = new ArrayList<>();
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(DashboardActivity.this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(DashboardActivity.this, EditBasicDetailsActivity.class);
+                intent.putExtra("IS_EDIT", true);
+                intent.putExtra("DATA", farmerModelList.get(position));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
         getDetails();
     }
 
@@ -58,6 +78,7 @@ public class DashboardActivity extends AppCompatActivity {
                 {
                     textViewTotal.setText("Total:"+response.body().size());
                   //  Collections.reverse(response.body());
+                    farmerModelList = response.body();
                     adapter = new FarmersAdapter(DashboardActivity.this, response.body());
                     recyclerView.setAdapter(adapter);
                 }

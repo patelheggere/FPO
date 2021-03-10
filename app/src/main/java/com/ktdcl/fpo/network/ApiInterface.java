@@ -85,4 +85,7 @@ public interface ApiInterface {
     @GET("GetFarmersByCEO.php")
     Call<List<FarmerModel>> GetFarmersByCEO(@Query("ID") String id);
 
+    @GET("GetFPOFarmerData.php")
+    Call<FPOAppModel> GetFarmersBasicDetails(@Query("ID") String id);
+
 }

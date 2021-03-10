@@ -90,7 +90,7 @@ public class FarmersAdapter extends RecyclerView.Adapter<FarmersAdapter.MyViewHo
         try {
             final FarmerModel dataModel = dataModelList.get(position);
             holder.name.setText(dataModel.getName());
-            holder.place.setText(dataModel.getPlace());
+            holder.place.setText(dataModel.getVillage());
         }catch (Exception e){
             e.printStackTrace();
         }
