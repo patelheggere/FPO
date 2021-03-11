@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.ktdcl.fpo.KtdclApplication;
 import com.ktdcl.fpo.R;
+import com.ktdcl.fpo.model.APIResponseModel;
 import com.ktdcl.fpo.model.DistrictModel;
 import com.ktdcl.fpo.model.FPOAppModel;
 import com.ktdcl.fpo.model.FarmerModel;
@@ -271,7 +272,6 @@ public class EditBasicDetailsActivity  extends AppCompatActivity {
 
         setUpNetwork();
         getDistricts();
-        getBasicDetails();
     }
 
     private void initViews() {
@@ -765,7 +765,7 @@ public class EditBasicDetailsActivity  extends AppCompatActivity {
                         ArrayAdapter aa = new ArrayAdapter(EditBasicDetailsActivity.this, R.layout.spinner_item, mTalukNames);
                         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinnerTaluk.setAdapter(aa);
-                        spinnerTaluk.setSelection(0);
+                        spinnerTaluk.setSelection(mTalukNames.indexOf(farmerModelData.getTaluk()));
 
                     }
                 }
@@ -798,7 +798,19 @@ public class EditBasicDetailsActivity  extends AppCompatActivity {
                         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                         spinnerTanda.setAdapter(aa);
-                        spinnerTanda.setSelection(0);
+                        spinnerTanda.setSelection(mTandaNames.indexOf(farmerModelData.getVillage()));
+                        editTextAadhar.setText(farmerModelData.getAadha());
+                        editTextFarmerName.setText(farmerModelData.getName());
+                        editTextFatherName.setText(farmerModelData.getFname());
+                        editTextMobile.setText(farmerModelData.getPhone());
+                        editTextFRUITSNo.setText(farmerModelData.getFruitsNo());
+                        editTextAge.setText(farmerModelData.getAge());
+                        editTextMainProfession.setText(farmerModelData.getMainProfession());
+                        editTextSubProfession.setText(farmerModelData.getSubProfession());
+                        spMainSourceIncome.setSelection(sourceOfIncomes.indexOf(farmerModelData.getMainIncomeSource()));
+                        spSecondarySourceIncome.setSelection(secondaryOfIncomes.indexOf(farmerModelData.getSecondIncomeSource()));
+                        spinnerQualification.setSelection(mQualificationList.indexOf(farmerModelData.getQualification()));
+                        spinnerMember.setSelection(mMemberList.indexOf(farmerModelData.getMemOfLocalOrg()));
 
                     }
                 }
@@ -847,6 +859,7 @@ public class EditBasicDetailsActivity  extends AppCompatActivity {
                         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinnerDist.setAdapter(aa);
                         spinnerDist.setSelection(0);
+                        getBasicDetails();
 
                     }
                 }
@@ -861,21 +874,25 @@ public class EditBasicDetailsActivity  extends AppCompatActivity {
             Toast.makeText(EditBasicDetailsActivity.this, "No internet", Toast.LENGTH_LONG).show();
         }
     }
+
     public void getBasicDetails()
     {
-        Call<FPOAppModel> fpoAppModelCall = apiInterface.GetFarmersBasicDetails(farmerModelData.getName());
-        fpoAppModelCall.enqueue(new Callback<FPOAppModel>() {
+        Call<APIResponseModel> fpoAppModelCall = apiInterface.GetFarmersBasicDetails(farmerModelData.getSl_no());
+        fpoAppModelCall.enqueue(new Callback<APIResponseModel>() {
             @Override
-            public void onResponse(Call<FPOAppModel> call, Response<FPOAppModel> response) {
+            public void onResponse(Call<APIResponseModel> call, Response<APIResponseModel> response) {
                 if(response.isSuccessful() && response.body()!=null)
                 {
-                    fpoAppModel = response.body();
+                    farmerModelData = response.body().getData().getFarmer_Data().get(0);
+                    Log.d(TAG, "onResponse: "+farmerModelData.getDist());
+                    Log.d(TAG, "onResponse: dist index:"+mDistrictNamesList.indexOf(farmerModelData.getDist()));
+                    spinnerDist.setSelection(mDistrictNamesList.indexOf(farmerModelData.getDist()));
                 }
             }
 
             @Override
-            public void onFailure(Call<FPOAppModel> call, Throwable t) {
-
+            public void onFailure(Call<APIResponseModel> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
             }
         });
     }

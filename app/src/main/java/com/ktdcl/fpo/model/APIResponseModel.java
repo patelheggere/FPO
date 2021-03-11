@@ -1,5 +1,7 @@
 package com.ktdcl.fpo.model;
 
+import java.util.List;
+
 public class APIResponseModel {
     private boolean status;
     private String msg;
@@ -9,6 +11,7 @@ public class APIResponseModel {
     private String email;
     private String imageURL;
     private String fpo_id;
+    private Data data;
     public APIResponseModel() {
     }
 
@@ -84,5 +87,13 @@ public class APIResponseModel {
 
     public void setFpo_id(String fpo_id) {
         this.fpo_id = fpo_id;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
     }
 }
